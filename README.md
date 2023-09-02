@@ -1,10 +1,10 @@
 ## Aqua'manyi
 
-Aqua’manyi product focuses on water quality in lakes through data-driven solutions.
-We aim to optimize resource usage, enhance decision-making, and contribute to a aquatic life.
+This project focuses on developing a dashboard using Next.js for water quality in lakes through data-driven solutions. It’s aim is to optimize resource usage, enhance decision-making, and contribute to aquatic life.
 
 ## Getting Started
-These instructions will guide you through setting up the Aqua'manyi informational website on your local machine.
+These instructions will guide you through setting up the Aqua'manyi local machine.
+
 ### Pre requisites
 Before you begin, make sure you have the following installed:
 - Node.js
@@ -23,10 +23,10 @@ Clone this repository to your local machine.
    npm install
 ```
 4. To run the Aqua'manyi frontend locally, use the following command:
-```  npm start
+```  npm run dev
 ```
-  Access the website by opening a web browser and navigating to `http://localhost:3000`.
-  
+  Access the dashboard by opening a web browser and navigating to `http://localhost:3000`.
+
   ## Features
 
 Temperature- Temperature is typically measured in and provides a numerical value indicating
