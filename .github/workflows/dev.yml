@@ -4,8 +4,6 @@ on:
   push:
     branches:
        - dev  
-     
-
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -19,7 +17,8 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '18' # specify the node version
+        node-version: '18' 
+    # specify the node version
     
     # Install Packages
     - name: Install Packages
