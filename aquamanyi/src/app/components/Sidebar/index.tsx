@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { BiHome } from 'react-icons/bi';
-
-import { FaChartBar, FaCircleNotch, FaRegClone, FaCog, FaPen, FaTemperatureHigh, FaBell, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaChartBar, FaTemperatureHigh, FaMapMarkerAlt, FaBell, FaCog } from 'react-icons/fa';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +18,12 @@ const Sidebar = () => {
         <div className="flex justify-between items-center h-16">
           <div className="ml-2"></div>
           <button className="text-white mr-2" onClick={toggleMenu}>
-            <div className={`h-1 w-6 bg-white mb-1 transition-transform transform ${isOpen ? 'rotate-45 translate-y-0.5' : ''}`} />
-            <div className={`h-1 w-6 bg-white mb-1 transition-opacity ${isOpen ? 'opacity-0' : ''}`} />
-            <div className={`h-1 w-6 bg-white transition-transform transform ${isOpen ? '-rotate-45 translate-y-0.5' : ''}`} />
-          </button>
+  <div className={`h-1 w-4 bg-white mb-1 transition-transform transform ${isOpen ? '-rotate-45 translate-y-1.5' : ''}`} />
+  <div className={`h-1 w-4 bg-white mb-1 transition-opacity ${isOpen ? 'opacity-0' : ''}`} />
+  <div className={`h-1 w-4 bg-white transition-transform transform ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
+</button>
+
+
         </div>
         {isOpen && (
           <>
