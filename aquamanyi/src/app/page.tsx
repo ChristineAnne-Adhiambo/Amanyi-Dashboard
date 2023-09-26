@@ -1,11 +1,25 @@
 
 
+'use client'
+import React from 'react';
+
+
+
 import React from 'react'
 import HomePage from './components/HomePage'
 
 
+
 export default function Home() {
   return (
+
+    <main>
+      <div>
+        
+       
+      </div>
+
+
     <main >
       <div >
        <HomePage/>
@@ -21,6 +35,11 @@ export default function Home() {
 
 
     </main>
+
+  );
+}
+
   )
 
 }
+
