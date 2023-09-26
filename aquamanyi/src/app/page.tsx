@@ -1,16 +1,18 @@
-import Image from 'next/image'
+
+// pages/index.js or any other relevant page
+'use client'
 import React from 'react';
-import AlertComponent from '../components/alerts'
+// import Notification from '../components/Notification';
+// import Notification from '@/components/Notifications/page';
+import Notification from '@/components/page';
 
-
-
-export default function Home() {
+const Home = () => {
   return (
-    <main>
-      <div>
-        <AlertComponent/>
+    <div>
+      {/* Your page content */}
+      <Notification />
+    </div>
+  );
+};
 
-      </div>
-    </main>
-  )
-}
+export default Home;
