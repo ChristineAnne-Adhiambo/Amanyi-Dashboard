@@ -8,9 +8,8 @@ export default function Home() {
       
     <RootLayout showSidebar={false}>
       <div>
+
         <Sidebar/>
-     {/* <SignupForm/>
-     <SigninForm/> */}
      </div>
     </RootLayout>
     
