@@ -1,13 +1,30 @@
-import HomePage from "./components/HomePage";
-import Notification from "./notification/page";
+'use client'
 
+import React from 'react';
+
+import Notification from "./notification/page";
 export default function Home() {
   return (
     <main>
-     <Notification/>
-
+     
+      <Notification />
     </main>
-  );
-};
+  )
+}
+// pages/index.js or any other relevant page
+
+
+
+
+
+// const Home = () => {
+//   return (
+//     <div>
+     
+    
+//     </div>
+//   );
+// };
+
 
 
