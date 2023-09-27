@@ -39,19 +39,23 @@ const Sidebar = () => {
             </div>
             <hr className="border-gray-300 my-2" />
             <nav className="flex flex-col mt-4">
-              <Link href="/" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
+              <Link href="/" 
+                className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <BiHome className="text-lg mr-2" /> Home
               </Link>
-              <Link href="/about" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
+
+              <Link href="/pH" 
+              className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaChartBar className="text-lg mr-2" /> Data Visualization
               </Link>
-              <Link href="/contact" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
+
+              <Link href="/pH" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaTemperatureHigh className="text-lg mr-2" /> pH & Temperature
               </Link>
               <Link href="/" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaMapMarkerAlt className="text-lg mr-2" /> Sensor Location
               </Link>
-              <Link href="/" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
+              <Link href="/notification" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaBell className="text-lg mr-2" /> Alert & Notification
               </Link>
               <hr className="border-gray-300 my-2" />
