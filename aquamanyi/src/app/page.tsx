@@ -1,15 +1,13 @@
-'use client'
-import React from 'react';
-import Notification from './component/notification';
+import HomePage from "./components/HomePage";
+import Notification from "./notification/page";
 
-const Home = () => {
+export default function Home() {
   return (
     <main>
-    <div>
-      <Notification />
-    </div>
+     <Notification/>
+
     </main>
   );
 };
 
-export default Home;
+

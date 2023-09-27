@@ -10,7 +10,7 @@ const Notification = () => {
      
 <div className="ml-[75%]">
 
-      <FaBell size={32} color="darkblue" className="notification-icon" />
+      <FaBell size={32} color="darkblue"/>
     </div>
       <div className="w-3/4 h-[74px] flex-shrink-0 border-2 border-blue-900 bg-opacity-51 bg-blue-900 mt-2 ml-9 flex items-center">
      
