@@ -8,6 +8,7 @@ import { InputPassword } from "../atoms/icons";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BiSolidLockAlt } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
+import SigninForm from "../signin/page";
 const formSchema = z.object({
     name: z.string({ required_error: "Name is required" }).nonempty("Name is required"),
     email: z.string({ required_error: "Email is required" }).email('Invalid email address'),
@@ -26,8 +27,8 @@ const SignupForm = () => {
         console.log(data);
     };
     return (
-        <div className="flex w-full min-h-screen flex-col md:flex-row  ">
-            <div className="bg-primary flex-1 justify-center items-center flex">
+        <div className="flex w-full min-h-screen flex-col md:flex-row min-width:1200px" >
+            <div className="bg-primary flex-1 justify-center items-center flex" >
                 <img src="/images/Amanyi-Logo.png" alt="logo" className="md:w-[400px] object-cover" />
             </div>
             <div className="flex-1 justify-center items-center flex">
@@ -65,8 +66,10 @@ const SignupForm = () => {
                     />
                     {errors?.confirmPassword && <p className="text-red-400">{errors?.confirmPassword?.message}</p>}
                     <button className="mt-4 bg-[#38D0F5] text-primary text-[15px] font-[700] h-[40px] px-6 w-full rounded-full  ">
-                        Sign Up
+                        <Link href='signin'>Sign Up
+                        </Link>
                     </button>
+                    
                     <p className="mt-4 text-sm flex gap-2">
                         Already Have an account? <Link href="/signin" className="text-primary font-[800]">
                             Sign In
@@ -74,7 +77,7 @@ const SignupForm = () => {
                     </p>
                 </form>
             </div>
-            {/* <div /> */}
+            <div />
         </div>
     );
 };

@@ -3,14 +3,16 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { BiHome } from 'react-icons/bi';
 import {
-  FaChartBar,FaCircleNotch,FaRegClone,FaCog,FaPen,FaTemperatureHigh,FaBell,FaMapMarkerAlt} from 'react-icons/fa';
+  FaChartBar, FaTemperatureHigh, FaBell
+} from 'react-icons/fa';
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true); // Set initial state to true to keep sidebar open
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    document.body.classList.toggle('overflow-x-hidden', isOpen);
+    // Remove this line to prevent closing on link click
+    // document.body.classList.toggle('overflow-x-hidden', isOpen);
   };
 
   return (
@@ -39,27 +41,19 @@ const Sidebar = () => {
             </div>
             <hr className="border-gray-300 my-2" />
             <nav className="flex flex-col mt-4">
-              <Link href="/homePage" 
-                className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
+              <Link href="/homePage" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <BiHome className="text-lg mr-2" /> Home
               </Link>
               <Link href="/pH" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaTemperatureHigh className="text-lg mr-2" /> pH & Temperature
               </Link>
-              <Link href="/dataVisualization" 
-              className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
+              <Link href="/dataVisualization" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaChartBar className="text-lg mr-2" /> Data Visualization
-              </Link>
-              <Link href="/" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
-                <FaMapMarkerAlt className="text-lg mr-2" /> Sensor Location
               </Link>
               <Link href="/notification" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaBell className="text-lg mr-2" /> Alert & Notification
               </Link>
               <hr className="border-gray-300 my-2" />
-              <Link href="/" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
-                <FaCog className="text-lg mr-2" /> Profile Setting
-              </Link>
             </nav>
           </>
         )}

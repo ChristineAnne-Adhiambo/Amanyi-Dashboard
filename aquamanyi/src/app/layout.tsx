@@ -24,8 +24,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className + ' flex'}>
         <div className="flex">
-          {showSidebar && <Sidebar />}
         </div>
+        {showSidebar && <Sidebar/>}
         <div>
           {children}
         </div>

@@ -7,9 +7,7 @@ export default function Home() {
     <main>
     <RootLayout showSidebar={false}>
      <SignupForm/>
-     <SigninForm/>
     </RootLayout>
-
     </main>
   )
 }
