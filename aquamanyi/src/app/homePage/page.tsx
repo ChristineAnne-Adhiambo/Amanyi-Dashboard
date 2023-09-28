@@ -1,18 +1,9 @@
 "use client";
 import React, { useState } from "react";
+import Sidebar from "../components/Sidebar";
 import { FaTint, FaThermometerThreeQuarters, FaDatabase } from "react-icons/fa";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
+import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Legend,PieChart,Pie,Cell,} from "recharts";
+
 
 const HomePage = () => {
   const dailyTemperatureData = [
@@ -50,21 +41,21 @@ const HomePage = () => {
   );
 
   return (
-    <div className="container mx-auto  sm:[480px] md:[760px] lg:[976] xl:[144]">
+    <div className="container mx-auto  sm:[480px] md:[760px] lg:[976] xl:[144] ml-60">
       <div className="flex justify-center">
   <input
     type="text"
     placeholder="Search"
-    className="w-[400px] h-[40px] px-4 mr-10 mt-10 py-2 text-gray-800 border border-gray-800 rounded-lg"
+    className="w-[300px] h-[40px] px-4 mr-10 mt-4 py-2 text-gray-800 border border-gray-800 rounded-lg"
     value={searchTerm}
     onChange={(e) => setSearchTerm(e.target.value)}
   />
 </div>
       
 
-<div className="flex justify-center gap-80 mt-20 space-x-20 ">
+<div className="flex justify-center gap-60 mt-10 space-x-10 ">
 <div className="border-4 p-4 max-w-lg rounded-lg text-white bg-sky-500/100 flex items-center h-40">
-  <FaTint size={120} className="text-white mx-auto" />
+  <FaTint size={80} className="text-white mx-auto" />
   <button
   className="text-white ml-4 w-200"
   onClick={() => handleButtonClick("monthly")}
@@ -77,10 +68,10 @@ const HomePage = () => {
 </button>
   </div>
 
-  <div className="border-4 p-4 max-w-lg rounded-lg text-white bg-blue-950 flex items-center h-40">
-  <FaThermometerThreeQuarters size={120} className="text-white mx-auto" />
+  <div className="border-4 p-4 max-w-lg rounded-lg text-white bg-blue-950 flex items-center h-30">
+  <FaThermometerThreeQuarters size={80} className="text-white mx-auto" />
   <button
-  className="text-white ml-4 w-200"
+  className="text-white ml-4 w-100"
   onClick={() => handleButtonClick("monthly")}
 >
   <p className="text-2xl">
@@ -91,10 +82,10 @@ const HomePage = () => {
   </div>
 </div>
 
-<div className="ml-[100px]  mt-20 flex items-left ">
+<div className="ml-[100px]  mt-10 flex items-left ">
 <div className="bg-white-200 p-4 font-semibold rounded-lg shadow-lg mr-40 ">
             <h2 className="text-xl font-bold mb-2 ml-10">Temperature</h2>
-            <BarChart width={600} height={600} ml-38 data={dailyTemperatureData}>
+            <BarChart width={500} height={400} ml-38 data={dailyTemperatureData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
@@ -112,9 +103,9 @@ const HomePage = () => {
           </div>
 
         
-          <div className="bg-white-200  font-semibold rounded-lg shadow-lg mt-40 ">
+          <div className="bg-white-200  font-semibold rounded-lg shadow-lg mt-20 ">
             <h2 className="text-xl font-bold mb-2">pH Measurement</h2>
-            <PieChart width={450} height={400}>
+            <PieChart width={400} height={330}>
               <Pie
                 dataKey="value"
                 isAnimationActive={false}
@@ -155,33 +146,10 @@ const HomePage = () => {
                 <p className="text-xs font-semibold text-green-600">Normal</p>
               {/* </div> */}
             </div>
-            <div className="display-flex bg-gray-300  max-w-[82%] p-4 flex justify-between items-center mt-4 ml-20">
-              {/* <div className="flex items-center gap-40 ml-20"> */}
-                <p className="text-xs font-semibold">Naivasha North</p>
-                <p className="text-xs font-semibold">4/10/2023</p>
-                <p className="text-xs font-semibold">5:10am</p>
-                <p className="text-xs font-semibold">7:0</p>
-                <p className="text-xs font-semibold text-green-600">Normal</p>
-              {/* </div> */}
-            </div>
-            <div className="display-flex bg-gray-300  max-w-[82%] p-4 flex justify-between items-center mt-4 ml-20">
-              {/* <div className="flex items-center gap-40 ml-20"> */}
-                <p className="text-xs font-semibold">Naivasha North</p>
-                <p className="text-xs font-semibold">4/10/2023</p>
-                <p className="text-xs font-semibold">5:10am</p>
-                <p className="text-xs font-semibold">7:0</p>
-                <p className="text-xs font-semibold text-red-600">Acidity</p>
-              {/* </div> */}
-            </div>
-            <div className="display-flex bg-gray-300  max-w-[82%] p-4 flex justify-between items-center mt-4 ml-20">
-                <p className="text-xs font-semibold">Naivasha North</p>
-                <p className="text-xs font-semibold">4/10/2023</p>
-                <p className="text-xs font-semibold">5:10am</p>
-                <p className="text-xs font-semibold">7:0</p>
-                <p className="text-xs font-semibold text-red-600">Acidity</p>
-             
-            </div>
+            
+            
           </div>
+          <Sidebar/>
     </div>
   );
 };

@@ -1,30 +1,13 @@
-'use client'
-
-import React from 'react';
-
-import Notification from "./notification/page";
+import SigninForm from "./signin/page"
+import SignupForm from "./signup/page"
+import RootLayout from "./layout"
+import Sidebar from "./components/Sidebar"
 export default function Home() {
   return (
     <main>
-     
-      <Notification />
+    <RootLayout showSidebar={false}>
+     <SignupForm/>
+    </RootLayout>
     </main>
   )
 }
-// pages/index.js or any other relevant page
-
-
-
-
-
-// const Home = () => {
-//   return (
-//     <div>
-     
-    
-//     </div>
-//   );
-// };
-
-
-

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FaTint, FaThermometerThreeQuarters, FaDatabase } from "react-icons/fa";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } from 'recharts';
 import Link from 'next/link'
+import Sidebar from "../components/Sidebar";
 
 const Ph = () => {
   const tempData = [
@@ -118,6 +119,7 @@ const Ph = () => {
     </div>
   </div>
 </div>
+<Sidebar/>
 </div>
   );
 };
