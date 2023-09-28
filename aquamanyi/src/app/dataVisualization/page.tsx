@@ -15,9 +15,6 @@ const DataVisualization: React.FC = () => {
   };
 
   const updateChartData = (type: 'day' | 'week' | 'month') => {
-    // Update chart data based on the selected type (day, week, or month)
-    // You need to modify this function to fetch appropriate data based on the selected type.
-    // For simplicity, I'm using dummy data here.
 
     let labels: string[] = [];
     let phData: number[] = [];
@@ -57,7 +54,7 @@ const DataVisualization: React.FC = () => {
       ],
     };
 
-    // Update the table data
+ 
     const updatedTableData = labels.map((label, index) => ({
       time: label,
       pH: phData[index],
@@ -88,14 +85,14 @@ const DataVisualization: React.FC = () => {
   };
 
   useEffect(() => {
-    // Initial load with 'day' as default option
+  
     updateChartData('day');
   }, []);
 
   return (
     <div>
       <div className="flex justify-center space-x-10 mt-10 mb-10">
-        {/* Buttons for selecting the duration */}
+       
         <div className="border-4 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
           <FaTint size={62} className="mx-auto" style={{ color: 'white' }} />
           <button
@@ -128,10 +125,10 @@ const DataVisualization: React.FC = () => {
         </div>
       </div>
       <div className="flex justify-center" style={{ maxWidth: '50%', margin: '0 auto' }}>
-        {/* Chart */}
+  
         <canvas ref={chartCanvasRef} id="chartCanvas" width="150" height="50" />
       </div>
-      {/* Table to display pH and temperature data */}
+     
       <div className="mx-auto w-[40%] mt-7 space-y-2">
   <div className="display-flex text-white bg-blue-950 p-4  flex justify-between items-center mt-2 gap-10">
     <div className="flex gap-20 items-center text-center">
@@ -150,8 +147,7 @@ const DataVisualization: React.FC = () => {
     </div>
   ))}
 </div>
-
-      <Sidebar />
+ <Sidebar />
     </div>
   );
 };

@@ -7,12 +7,11 @@ import {
 } from 'react-icons/fa';
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(true); // Set initial state to true to keep sidebar open
+  const [isOpen, setIsOpen] = useState(true); 
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    // Remove this line to prevent closing on link click
-    // document.body.classList.toggle('overflow-x-hidden', isOpen);
+   
   };
 
   return (
