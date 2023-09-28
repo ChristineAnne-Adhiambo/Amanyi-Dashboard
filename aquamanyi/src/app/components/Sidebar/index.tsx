@@ -46,7 +46,7 @@ const Sidebar = () => {
               <Link href="/pH" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaTemperatureHigh className="text-lg mr-2" /> pH & Temperature
               </Link>
-              <Link href="/pH" 
+              <Link href="/dataVisualization" 
               className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaChartBar className="text-lg mr-2" /> Data Visualization
               </Link>
