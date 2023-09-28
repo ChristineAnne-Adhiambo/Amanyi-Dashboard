@@ -61,7 +61,7 @@ const Ph = () => {
 </div>
 <p style={{marginLeft:'48%', marginTop:'3%'}}>pH Readings</p>
 
-      <div className="ml-[70px]  flex flex-col items-left font-family-Poppins mr-20 ">
+      <div className="ml-[10%]  flex flex-col items-left font-family-Poppins mr-20 ">
       <p className="text-3xl -mt-2 mb-9 ml-24 text-base font-medium text-[#422503]"></p>
       <div className="bg-white-200 p-4 font-semibold rounded-lg ">
        
