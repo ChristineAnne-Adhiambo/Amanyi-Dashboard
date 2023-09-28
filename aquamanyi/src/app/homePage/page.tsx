@@ -51,7 +51,7 @@ const HomePage = () => {
   );
 
   return (
-    <div className="container mx-auto  sm:[480px] md:[760px] lg:[976] xl:[144]">
+    <div className="container mx-auto  sm:[480px] md:[760px] lg:[976] xl:[144] ml-60">
       <div className="flex justify-center">
   <input
     type="text"

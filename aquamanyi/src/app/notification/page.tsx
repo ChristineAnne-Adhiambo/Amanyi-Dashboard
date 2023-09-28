@@ -9,11 +9,11 @@ const Notification = () => {
   return (
     <div className="flex flex-col items-center pt-20">
      
-<div className="ml-[75%]">
+<div className="ml-[73%] blue-950">
 
       <FaBell size={32} color="darkblue"/>
     </div>
-      <div className="w-3/4 h-[74px] flex-shrink-0 border-2 border-blue-900 bg-opacity-51 bg-blue-900 mt-2 ml-9 flex items-center">
+      <div className="w-4/6 h-[74px] flex-shrink-0 border-2 border-blue-950 bg-opacity-51 bg-blue-950 mt-2 ml-32 flex items-center">
      
   <div className="text-white font-inter text-2xl font-semibold leading-normal p-8 ml-10">
     Alert & Notification
