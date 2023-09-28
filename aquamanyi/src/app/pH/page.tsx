@@ -86,7 +86,6 @@ const Ph = () => {
       </div> 
       
 
-
 <div className="mx-auto space-y-4 ml-30">
 <div className="display-flex text-white bg-blue-950 w-[90%] p-4 flex justify-between items-center mt-7 h-10 ml-40">
     <div className="flex gap-20 items-center ml-10">
