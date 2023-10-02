@@ -54,7 +54,7 @@ const HomePage = () => {
       
 
 <div className="flex justify-center gap-60 mt-10 space-x-10 ">
-<div className="border-4 p-4 max-w-lg rounded-lg text-white bg-sky-500/100 flex items-center h-40">
+<div className="border-4 p-4 max-w-lg rounded-lg text-white bg-sky-500/100 flex items-center ">
   <FaTint size={80} className="text-white mx-auto" />
   <button
   className="text-white ml-4 w-200"
@@ -68,7 +68,7 @@ const HomePage = () => {
 </button>
   </div>
 
-  <div className="border-4 p-4 max-w-lg rounded-lg text-white bg-blue-950 flex items-center h-30">
+  <div className="border-4 p-4 max-w-lg rounded-lg text-white bg-blue-950 flex items-center ">
   <FaThermometerThreeQuarters size={80} className="text-white mx-auto" />
   <button
   className="text-white ml-4 w-100"

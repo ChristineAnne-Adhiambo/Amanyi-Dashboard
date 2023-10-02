@@ -29,7 +29,7 @@ const Temperature = () => {
     setActiveButton(buttonType);
   };  
   return (  
-  <div className="mx-auto  flex flex-col items-left font-family-Poppins mb-20">
+  <div className="mx-auto  flex flex-col items-left font-family-Poppins mb-20 ml-[160px]">
   
 <div className="flex justify-center space-x-10 mt-5 gap-20 ml-10">
 <div className="border-10 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
@@ -66,7 +66,7 @@ const Temperature = () => {
       <p className="text-3xl -mt-2 mb-9 ml-24 text-base font-medium text-[#422503]"></p>
       <div className="bg-white-200 p-4 font-semibold rounded-lg ">
        
-        <LineChart className="mb-[20px] ml-[20%]" width={930} height={450} data={chartData} >
+        <LineChart className="mb-[20px] ml-[8%]" width={980} height={450} data={chartData} >
           <XAxis dataKey="name">
             {activeButton === 'monthly' ? (
               <Label value="Time(hrs)" position="insideBottom" dy={7} />
@@ -87,7 +87,7 @@ const Temperature = () => {
       
 
 
-<div className="mx-auto space-y-4 ml-30">
+<div className="mx-auto space-y-4 ml-[20px]">
 <div className="display-flex text-white bg-blue-950 w-[90%] p-4 flex justify-between items-center mt-7 h-10 ml-40">
     <div className="flex gap-20 items-center ml-10">
       <p className="text-sm font-semibold">Sensor Location</p>

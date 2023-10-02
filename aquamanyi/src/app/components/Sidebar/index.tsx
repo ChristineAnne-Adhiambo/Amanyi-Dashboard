@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { BiHome } from 'react-icons/bi';
 import {
-  FaChartBar, FaTemperatureHigh, FaBell
+  FaChartBar, FaTemperatureHigh, FaBell, FaOutdent
 } from 'react-icons/fa';
 
 const Sidebar = () => {
@@ -41,7 +41,7 @@ const Sidebar = () => {
             <hr className="border-gray-300 my-2" />
             <nav className="flex flex-col mt-4">
               <Link href="/homePage" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
-                <BiHome className="text-lg mr-2" /> Home
+                <BiHome className="text-lg mr-2" /> Dashboard
               </Link>
               <Link href="/pH" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaTemperatureHigh className="text-lg mr-2" /> pH & Temperature
@@ -49,10 +49,13 @@ const Sidebar = () => {
               <Link href="/dataVisualization" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaChartBar className="text-lg mr-2" /> Data Visualization
               </Link>
-              <Link href="/notification" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
+              {/* <Link href="/notification" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaBell className="text-lg mr-2" /> Alert & Notification
               </Link>
-              <hr className="border-gray-300 my-2" />
+              <hr className="border-gray-300 my-2" /> */}
+              <Link href="/signin" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
+                <FaOutdent className="text-lg mr-2" /> Logout
+              </Link>
             </nav>
           </>
         )}

@@ -7,7 +7,7 @@ import Sidebar from "../components/Sidebar";
 const Notification = () => {
 
   return (
-    <div className="flex flex-col items-center pt-20">
+    <div className="flex flex-col items-center pt-20 ml-[480px]">
      
 <div className="ml-[73%] blue-950">
 

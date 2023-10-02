@@ -29,7 +29,7 @@ const Ph = () => {
     setActiveButton(buttonType);
   };  
   return (  
-  <div className="mx-auto  flex flex-col items-left font-family-Poppins mb-20">
+  <div className="mx-auto  flex flex-col items-left font-family-Poppins mb-20 ml-[290px]">
   
 <div className="flex justify-center space-x-10 mt-5 gap-20 ml-10">
 <div className="border-10 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
@@ -66,7 +66,7 @@ const Ph = () => {
       <p className="text-3xl -mt-2 mb-9 ml-24 text-base font-medium text-[#422503]"></p>
       <div className="bg-white-200 p-4 font-semibold rounded-lg ">
        
-        <LineChart className="mb-[20px] ml-[20%]" width={930} height={450} data={chartData} >
+        <LineChart className="mb-[20px] ml-[3%]" width={1100} height={550} data={chartData} >
           <XAxis dataKey="name">
             {activeButton === 'monthly' ? (
               <Label value="Time(hrs)" position="insideBottom" dy={7} />
