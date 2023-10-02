@@ -10,48 +10,49 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { BiSolidLockAlt } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 import { useState } from "react";
-
-
-
-
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const formSchema = z.object({
-	name: z.string({ required_error: "Name is required" }).nonempty("Name is required"),
+	first_name: z.string({ required_error: "First name is required" }).nonempty("First name is required"),
+	last_name: z.string({ required_error: "Last name is required" }).nonempty("Last name is required"),
 	email: z.string({ required_error: "Email is required" }).email('Invalid email address'),
 	password: z.string({ required_error: "Password is required" }).min(8, { message: 'Password must be at least 8 characters' }),
-	confirmPassword: z.string({ required_error: "Confirm password is required" }).min(8, { message: 'Password must be at least 8 characters' })
-}).refine((data) => data.password === data.confirmPassword, {
-	path: ['confirmPassword'],
-	message: 'Passwords does not match'
+	username: z.string({ required_error: "Username required" }).min(8, { message: "Username must be at least 8 characters" }),
 });
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
 
 const SignupForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormSchemaType>({
-        resolver: zodResolver(formSchema),
-    });
-    const [loading, setLoading] = useState(false)                                          
+	const { register, handleSubmit, formState: { errors } } = useForm<FormSchemaType>({
+		resolver: zodResolver(formSchema),
+	});
+	const [loading, setLoading] = useState(false)
+	const [error, setError] = useState('')
 
-    const handleFormSubmit = async(data: FormSchemaType) => {
-       try {
-        setLoading(true) 
-        const response=await fetch("/api/user",{method:"POST", body:JSON.stringify(data)}).then(res=>res.json())
-        setLoading(false)
-        console.log(response);
-        
+	const router = useRouter()
 
-        
-       } catch (error) {
-        setLoading(false)
-        console.log(error);
-        
-        
-       }
+	const handleFormSubmit = async (data: FormSchemaType) => {
+		setError('')
+		try {
+			setLoading(true)
+			const result = await axios.post(`/api/register`, JSON.stringify(data), {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			})
 
-        console.log(data);
-    };
+			setLoading(false)
+			router.push('/signin')
+			
+
+		} catch (error: any) {
+			setLoading(false)
+			console.log(error);
+			setError(error.response.data || 'Failed to register')
+		}
+	};
 
 	return (
 		<div className="flex w-full min-h-screen flex-col md:flex-row  ">
@@ -59,25 +60,40 @@ const SignupForm = () => {
 				<img src="/images/Amanyi-Logo.png" alt="logo" className="md:w-[400px] object-cover" />
 			</div>
 			<div className="flex-1 justify-center items-center flex">
-				<form onSubmit={handleSubmit(handleFormSubmit)}className="w-full sm:w-[400px] px-2">
+				<form onSubmit={handleSubmit(handleFormSubmit)} className="w-full sm:w-[400px] px-2">
 					<div>
 						<h2 className="text-primary text-[20px] font-[800]">
 							Sign Up
 						</h2>
 					</div>
 
+					{
+						error && <p className="text-red-400">{error}</p>
+					}
+					<Input
+						icon={<BsFillPersonFill />}
+						placeholder="Username"
+						className="text-lg " style={{ marginLeft: 0 }}
+						{...register("username")}
+					/>
+					{errors?.username && <p className="text-red-400">{errors?.username?.message}</p>}
 
+					<Input
+						icon={<BsFillPersonFill />}
+						placeholder="First name"
+						className="text-lg " style={{ marginLeft: 0 }}
+						{...register("first_name")}
+					/>
+					{errors?.first_name && <p className="text-red-400">{errors?.first_name?.message}</p>}
 
 					<Input
 						icon={<BsFillPersonFill />}
 
-						placeholder="Full Name"
+						placeholder="Last name"
 						className="text-lg " style={{ marginLeft: 0 }}
-						{...register("name")}
+						{...register("last_name")}
 					/>
-
-
-					{errors?.name && <p className="text-red-400">{errors?.name?.message}</p>}
+					{errors?.last_name && <p className="text-red-400">{errors?.last_name?.message}</p>}
 
 					<Input
 						icon={<AiOutlineMail />}
@@ -97,30 +113,18 @@ const SignupForm = () => {
 					/>
 					{errors?.password && <p className="text-red-400">{errors?.password?.message}</p>}
 
-					<InputPassword
-						icon={<BiSolidLockAlt />}
-						placeholder="Confirm Password"
-						type="password"
-						{...register("confirmPassword")}
-					/>
-					{errors?.confirmPassword && <p className="text-red-400">{errors?.confirmPassword?.message}</p>}
-
-					{/* <button className="mt-4 bg-[#38D0F5] text-primary text-[15px] font-[700] h-[40px] px-6 w-full rounded-full  ">
-						Sign Up
-					</button> */}
-					<button className="mt-8 bg-[#38D0F5] text-primary text-[15px] font-[700] h-[40px] px-6 w-full rounded-full" disabled={loading}>
-                       {loading?"Loading...":" Sign up"}
-                    </button>
+					<button className="mt-8 bg-[#38D0F5] text-primary text-[15px] font-[700] h-[40px] px-6 w-full round-full" disabled={loading}>
+						{loading ? "Loading..." : " Sign up"}
+					</button>
 
 					<p className="mt-4 text-sm flex gap-2">
 						Already Have an account? <Link href="/signin" className="text-primary font-[800]">
 							Sign In
 						</Link>
 					</p>
-
 				</form>
 			</div>
-			{/* <div /> */}
+			<div/>
 		</div>
 	);
 };
