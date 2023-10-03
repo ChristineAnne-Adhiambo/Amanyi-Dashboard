@@ -1,8 +1,8 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
-import { FaTint, FaThermometerThreeQuarters } from 'react-icons/fa';
 import Sidebar from '../components/Sidebar';
+import { FaTint, FaThermometerThreeQuarters } from 'react-icons/fa';
 import useGetTemp from '../hooks/useGetTemp';
 
 const DataVisualization: React.FC = () => {
@@ -108,6 +108,7 @@ const DataVisualization: React.FC = () => {
   }, []);
 
   return (
+    
     <div className='ml-[560px]'>
       <div className="flex justify-center space-x-10 mt-10 mb-10">
         <div className="border-4 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
@@ -141,29 +142,32 @@ const DataVisualization: React.FC = () => {
           </button>
         </div>
       </div>
-      <div></div>
+
       <div className="flex justify-center mt-[180px]" style={{ maxWidth: '280%', margin: '0 auto' }}>
         <canvas ref={chartCanvasRef} id="chartCanvas" width="150px" height="50"></canvas>
       </div>
-      <div className="mx-auto w-[120%] mt-7 space-y-2">
-        <div className="display-flex text-white bg-blue-950 p-4 flex justify-between items-center mt-2 gap-10">
-          <div className="flex gap-20 items-center text-center">
-            <p className="text-xs font-semibold">Time</p>
-            <p className="text-xs font-semibold">pH</p>
-            <p className="text-xs font-semibold">Temperature (°C)</p>
-          </div>
-        </div>
-        {tableData.map((item: { time: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; pH: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; temperature: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }, index: React.Key | null | undefined) => (
-          <div className="text-black bg-gray-300 p-2 flex justify-between items-center mt-2" key={index}>
-            <div className="flex gap-20 items-center text-center">
-              <p className="text-xs font-semibold">{item.time}</p>
-              <p className="text-xs font-semibold">{item.pH}</p>
-              <p className="text-xs font-semibold">{item.temperature}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <Sidebar />
+    <div className="mx-auto mt-7">
+  <table className="w-full">
+    <thead>
+      <tr className="bg-blue-950 text-white">
+        <th className="py-2 px-4 border border-white text-xs font-semibold text-center">Time</th>
+        <th className="py-2 px-4 border border-white text-xs font-semibold text-center">pH</th>
+        <th className="py-2 px-4 border border-white text-xs font-semibold text-center">Temperature (°C)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {tableData.map((item, index) => (
+        <tr key={index} className="bg-gray-300">
+          <td className="py-2 px-4 border border-white text-xs text-center">{item.time}</td>
+          <td className="py-2 px-4 border border-white text-xs text-center">{item.pH}</td>
+          <td className="py-2 px-4 border border-white text-xs text-center">{item.temperature}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+      <Sidebar/>
     </div>
   );
 };

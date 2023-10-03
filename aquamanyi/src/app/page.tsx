@@ -1,7 +1,12 @@
 import SigninForm from "./signin/page"
 import SignupForm from "./signup/page"
 import RootLayout from "./layout"
-import Sidebar from "./components/Sidebar"
+import HomePage from "./homePage/page"
+import Ph from "./pH/page"
+import Temperature from "./temperature/page"
+import DataVisualization from "./dataVisualization/page"
+
+
 export default function Home() {
   return (
     <main>

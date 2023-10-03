@@ -7,6 +7,7 @@ import { Input } from "../atoms/forms";
 import { InputPassword } from "../atoms/icons";
 import { BiSolidLockAlt } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
+
 const formSchema = z.object({
     email: z.string({ required_error: "Email is required" }).email('Invalid email address'),
     password: z.string({ required_error: "Password is required" }).min(8, { message: 'Password must be at least 8 characters' }),

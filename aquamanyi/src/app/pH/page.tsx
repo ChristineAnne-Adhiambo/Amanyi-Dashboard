@@ -5,6 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } 
 import Link from 'next/link'
 import Sidebar from "../components/Sidebar";
 
+
 const Ph = () => {
   const tempData = [
     { name: '2.00', pH: 5.0, Temperature: 12 },
@@ -121,6 +122,7 @@ const Ph = () => {
 </div>
 <Sidebar/>
 </div>
+
   );
 };
 export default Ph;

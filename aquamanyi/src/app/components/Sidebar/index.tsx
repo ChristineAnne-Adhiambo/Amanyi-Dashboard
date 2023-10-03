@@ -49,13 +49,11 @@ const Sidebar = () => {
               <Link href="/dataVisualization" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaChartBar className="text-lg mr-2" /> Data Visualization
               </Link>
-              {/* <Link href="/notification" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
-                <FaBell className="text-lg mr-2" /> Alert & Notification
-              </Link>
-              <hr className="border-gray-300 my-2" /> */}
+              <hr className="border-gray-300 my-2" />
               <Link href="/signin" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaOutdent className="text-lg mr-2" /> Logout
               </Link>
+              
             </nav>
           </>
         )}

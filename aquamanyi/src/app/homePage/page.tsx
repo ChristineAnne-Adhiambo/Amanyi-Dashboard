@@ -1,10 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import Sidebar from "../components/Sidebar";
 import { FaTint, FaThermometerThreeQuarters, FaDatabase } from "react-icons/fa";
 import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Legend,PieChart,Pie,Cell,} from "recharts";
-
-
+import Sidebar from "../components/Sidebar";
 const HomePage = () => {
   const dailyTemperatureData = [
     { name: "Mon", Temperature: 29 },
@@ -41,6 +39,8 @@ const HomePage = () => {
   );
 
   return (
+
+  
     <div className="container mx-auto  sm:[480px] md:[760px] lg:[976] xl:[144] ml-60">
       <div className="flex justify-center">
   <input
@@ -151,6 +151,7 @@ const HomePage = () => {
           </div>
           <Sidebar/>
     </div>
+    
   );
 };
 
