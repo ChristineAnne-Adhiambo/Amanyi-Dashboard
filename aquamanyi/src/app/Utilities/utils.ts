@@ -5,8 +5,8 @@ export const getTemp = async () => {
       });
       const result = await response.json();
       return result;
-    } catch (error) {
-      console.error("Error fetching temperature:", error);
-      return [];
+    } catch (error:any) {
+      return error.message
+     
     }
   }

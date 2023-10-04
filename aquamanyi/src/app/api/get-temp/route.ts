@@ -10,14 +10,12 @@ export async function GET() {
       });
     }
     
-    const response = await fetch(`${BASE_URL}/api/recordings/?limit=6`, {
+    const response = await fetch(`${BASE_URL}/api/recordings`, {
       method: 'GET',  
       headers: {
         'Content-Type': 'application/json'  
       }
     });
-
-    console.log({ update: response });
 
     const result = await response.json();
 

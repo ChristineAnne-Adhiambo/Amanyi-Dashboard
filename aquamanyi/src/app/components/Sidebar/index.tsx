@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { BiHome } from 'react-icons/bi';
 import {
-  FaChartBar, FaTemperatureHigh, FaBell, FaOutdent
+  FaChartBar, FaTemperatureHigh, FaBell, FaOutdent, FaDatabase
 } from 'react-icons/fa';
 
 const Sidebar = () => {
@@ -41,7 +41,7 @@ const Sidebar = () => {
             <hr className="border-gray-300 my-2" />
             <nav className="flex flex-col mt-4">
               <Link href="/homePage" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
-                <BiHome className="text-lg mr-2" /> Dashboard
+                <FaDatabase className="text-lg mr-2" /> Dashboard
               </Link>
               <Link href="/pH" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaTemperatureHigh className="text-lg mr-2" /> pH & Temperature

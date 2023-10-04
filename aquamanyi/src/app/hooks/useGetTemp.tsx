@@ -8,7 +8,6 @@ interface TempData {
   Timestamp: string;
   sensor: number;
 }
-
 const useGetTemp = () => {
   const [temp, setTemp] = useState<TempData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -20,37 +19,34 @@ const useGetTemp = () => {
         const tempData = await getTemp();
         setTemp(tempData);
         setLoading(false);
-      } catch (error) {
-        setError("Error fetching temperature data.");
+      }
+       catch (error) {
+        setError("Failed to fetch data");
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
   const getTemperatureData = () => {
     return temp.map((data) => ({
-      x: new Date(data.Timestamp).toLocaleString(), 
+      x: new Date(data.Timestamp).toLocaleString(),
       y: parseFloat(data.Temperature_reading),
     }));
   };
-
   const getPhData = () => {
     return temp.map((data) => ({
       x: new Date(data.Timestamp).toLocaleString(),
       y: parseFloat(data.pH_sensor_reading),
     }));
   };
-
   const getTableData = () => {
     return temp.map((data) => ({
-      pH: data.pH_sensor_reading,
-      temperature: data.Temperature_reading,
-      time: new Date(data.Timestamp).toLocaleString(), 
+      pH: parseFloat(data.pH_sensor_reading),
+      temperature: parseFloat(data.Temperature_reading),
+      time: new Date(data.Timestamp).toLocaleString(),
     }));
   };
-
   return {
     loading,
     error,
@@ -59,5 +55,4 @@ const useGetTemp = () => {
     tableData: getTableData(),
   };
 };
-
 export default useGetTemp;
