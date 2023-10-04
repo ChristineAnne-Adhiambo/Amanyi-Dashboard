@@ -117,7 +117,7 @@ const DataRecordings: React.FC = () => {
             className={`text-center space-y-2 text-white ${activeButton === 'week' ? 'font-bold' : ''}`}
             onClick={() => handleButtonClick('week')}
           >
-            <p className="">Temperature <br /> (Week)</p>
+            <p className="">Temperature <br /> (°C)</p>
             <hr className="border-white" />
           </button>
         </div>
@@ -127,7 +127,7 @@ const DataRecordings: React.FC = () => {
             className={`text-center space-y-2 text-white ${activeButton === 'month' ? 'font-bold' : ''}`}
             onClick={() => handleButtonClick('month')}
           >
-            <p className="">Temperature & pH<br /> (Month)</p>
+            <p className="">Temperature & pH<br /> (pH/°C)</p>
             <hr className="border-white" />
           </button>
         </div>
