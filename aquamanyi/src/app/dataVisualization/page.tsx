@@ -5,7 +5,7 @@ import { FaTint, FaThermometerThreeQuarters } from 'react-icons/fa';
 import Sidebar from '../components/Sidebar';
 import useGetTemp from '../hooks/useGetTemp';
 
-const DataVisualization: React.FC = () => {
+const DataRecordings: React.FC = () => {
   const chartCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [activeButton, setActiveButton] = useState<'day' | 'week' | 'month'>('day');
   const [tableData, setTableData] = useState<{ time: string; pH: number; temperature: number }[]>([]);
@@ -166,7 +166,8 @@ const DataVisualization: React.FC = () => {
     </div>
   );
 };
-export default DataVisualization;
+
+export default DataRecordings;
 
 
 
