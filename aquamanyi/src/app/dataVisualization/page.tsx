@@ -34,15 +34,12 @@ const DataRecordings: React.FC = () => {
 
     setTableData(updatedTableData);
   };
-
-  useEffect(() => {
+    useEffect(() => {
     const labels = [
       '08:00', '14:55', '12:04', '12:05', '12:05', '12:06', '12:07', '12:10',
       '00:29', '00:29', '11:56', '20:09',
     ];
-
     const chartCanvas = chartCanvasRef.current;
-
     if (chartCanvas) {
       const ctx = chartCanvas.getContext('2d');
 
@@ -168,19 +165,3 @@ const DataRecordings: React.FC = () => {
 };
 
 export default DataRecordings;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
