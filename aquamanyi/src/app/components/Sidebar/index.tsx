@@ -53,6 +53,13 @@ const Sidebar = () => {
               <Link href="/signin" className="flex items-center text-white hover:bg-blue-600 px-8 py-4">
                 <FaOutdent className="text-lg mr-2" /> Logout
               </Link>
+
+
+              {/* <p>
+                @2023
+                Copyright <br/>
+                Amanyi
+              </p> */}
               
             </nav>
           </>
