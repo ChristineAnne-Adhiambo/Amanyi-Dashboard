@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Input } from "../atoms/forms";
-import { InputPassword } from "../atoms/icons";
 import { BiSolidLockAlt } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
+import { InputPassword } from "../../icons";
+
+
 const formSchema = z.object({
     email: z.string({ required_error: "Email is required" }).email('Invalid email address'),
     password: z.string({ required_error: "Password is required" }).min(8, { message: 'Password must be at least 8 characters' }),
@@ -42,9 +44,8 @@ const SigninForm = () => {
                         type="password"
                         {...register("password")}
                     />
-                    {errors?.password && <p className="text-red-400">{errors?.password?.message}</p>}
-                    
-                    <Link href="homePage"><button className="mt-8 bg-[#38D0F5] text-primary text-[15px] font-[700] h-[40px] px-6 w-full rounded-full">
+                    {errors?.password && <p className="text-red-400">{errors?.password?.message}</p>}                  
+                      <Link href="homePage"><button className="mt-8 bg-[#38D0F5] text-primary text-[15px] font-[700] h-[40px] px-6 w-full rounded-full">
                         Sign In
                     </button>
                     </Link>

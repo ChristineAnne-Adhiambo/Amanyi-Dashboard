@@ -90,8 +90,8 @@ const DataVisualization: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <div className="flex justify-center space-x-10 mt-10 mb-10">
+    <div className='ml-80'>
+      <div className="flex justify-center space-x-10 mt-10 mb-10 ml-10">
        
         <div className="border-4 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
           <FaTint size={62} className="mx-auto" style={{ color: 'white' }} />
@@ -124,14 +124,14 @@ const DataVisualization: React.FC = () => {
           </button>
         </div>
       </div>
-      <div className="flex justify-center" style={{ maxWidth: '50%', margin: '0 auto' }}>
+      <div className="flex justify-center" style={{ maxWidth: '100%', margin: '0 auto' }}>
   
-        <canvas ref={chartCanvasRef} id="chartCanvas" width="150" height="50" />
+        <canvas ref={chartCanvasRef} id="chartCanvas" width="150" height="80" />
       </div>
      
-      <div className="mx-auto w-[40%] mt-7 space-y-2">
+      <div className="mx-auto w-[890px] mt-7 space-y-2">
   <div className="display-flex text-white bg-blue-950 p-4  flex justify-between items-center mt-2 gap-10">
-    <div className="flex gap-20 items-center text-center">
+    <div className="flex gap-80 items-center text-center">
       <p className="text-xs font-semibold">Time</p>
       <p className="text-xs font-semibold">pH</p>
       <p className="text-xs font-semibold">Temperature (°C)</p>
@@ -139,7 +139,7 @@ const DataVisualization: React.FC = () => {
   </div>
   {tableData.map((item, index) => (
     <div className="text-black bg-gray-300 p-2 flex justify-between items-center mt-2" key={index}>
-      <div className="flex gap-20 items-center text-center">
+      <div className="flex gap-80 items-center text-center">
         <p className="text-xs font-semibold">{item.time}</p>
         <p className="text-xs font-semibold">{item.pH}</p>
         <p className="text-xs font-semibold">{item.temperature}</p>
