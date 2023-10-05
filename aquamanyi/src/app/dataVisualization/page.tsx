@@ -5,19 +5,15 @@ import { FaTint, FaThermometerThreeQuarters } from 'react-icons/fa';
 import Sidebar from '../components/Sidebar';
 import useGetTemp from '../hooks/useGetTemp';
 
-
-
 const DataRecordings: React.FC = () => {
   const chartCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [activeButton, setActiveButton] = useState<'day' | 'week' | 'month'>('day');
   const [tableData, setTableData] = useState<{ time: string; pH: number; temperature: number }[]>([]);
-  
   const { temperatureData, phData } = useGetTemp();
   const handleButtonClick = (buttonType: 'day' | 'week' | 'month') => {
     setActiveButton(buttonType);
     updateChartData(buttonType);
   };
-
   const updateChartData = (type: 'day' | 'week' | 'month') => {
     let labels: string[] = [];
     let phDataValues: number[] = [];
@@ -28,13 +24,11 @@ const DataRecordings: React.FC = () => {
       phDataValues = phData.map((data) => data.y);
       temperatureDataValues = temperatureData.map((data) => data.y);
     }
-
     const updatedTableData = labels.map((label, index) => ({
       time: label,
       pH: phDataValues[index] || 0, 
       temperature: temperatureDataValues[index] || 0, 
     }));
-
 
     setTableData(updatedTableData);
   };
