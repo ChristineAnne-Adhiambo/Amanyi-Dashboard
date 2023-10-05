@@ -1,51 +1,62 @@
 'use client'
-import React, { useState, useEffect } from "react";
-import { FaTint, FaThermometerThreeQuarters } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaTint, FaThermometerThreeQuarters, FaEdit, FaTrash } from "react-icons/fa";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } from 'recharts';
 import Link from 'next/link';
-import useGetSensors from "../api/get-sensors/hooks/useGetSensors";
+import Sidebar from "../components/Sidebar";
+import useGetSensors from "../hooks/useGetSensors";
+import { Chart } from "chart.js";
 
 
+function Temperature() {
+  const { sensors: sensorChart } = useGetSensors();
 
-const Temperature = () => {
-  const { sensors } = useGetSensors(); // Fetch the sensors data using the hook  
-  const [activeButton, setActiveButton] = useState<'monthly' | 'weekly'>('monthly');
+  useEffect(() => {
+   
+    if (sensorChart) {
+      const pHChart = document.getElementById('myChart') as HTMLCanvasElement | null;
+    
+      if (pHChart) {
+        const lineChart = pHChart.getContext('2d');
+    
+        if (lineChart) {
+          const myChart = new Chart(lineChart, {
+            type: 'line',
+            data: {
+              labels: sensorChart.map((item) => item.location),
+              datasets: [
+                {
+                  data: sensorChart.map((item) => item.id), 
+                  label: 'Temp',
+                  borderColor: 'blue',
+                  backgroundColor: '#71D1BD',
+                  fill: false,
+                  lineTension: 0,
+                },
+              ],
+            },
+            
+          });
+        }
+      }
+    }
+    
+  }, 
+  [sensorChart]);
 
-  const tempData = [
-    { name: '2.00', pH: 5.0, Temperature: 12 },
-      { name: '2.00', pH: 5.0, Temperature: 12 },
-      { name: '4.00', pH: 4, Temperature: 23 },
-      { name: '8.00', pH: 5.0, Temperature: 24 },
-      { name: '12.00', pH: 7.1, Temperature: 35 },
-      { name: '16.00', pH: 8.0, Temperature: 26 },
-      { name: '20.00', pH: 6, Temperature: 37 },
-    ];
   
-   const pHData = [
-    { name: 'Mon', pH: 4.0, Temperature: 22 },
-    { name: 'Mon', pH: 4.0, Temperature: 22 },
-    { name: 'Tue', pH: 6.5, Temperature: 33 },
-    { name: 'Wed', pH: 5, Temperature: 24 },
-    { name: 'Thu', pH: 5, Temperature: 26 },
-    { name: 'Fri', pH: 7.99, Temperature: 20 },
-    { name: 'Sat', pH: 5, Temperature: 27 },
-    { name: 'Sun', pH: 6.5, Temperature: 30 },
-  ];
-  const chartData = activeButton === 'monthly' ? tempData : pHData; 
-  
-  const handleButtonClick = (buttonType: 'monthly' | 'weekly') => {
-    setActiveButton(buttonType);
-  };  
-  return (
+  function handleButtonClick(arg0: string): void {
+    throw new Error("Function not implemented.");
+  }
+
+   return (
     <div className="mx-auto flex flex-col items-left font-family-Poppins mb-20">
-      
-<div className="flex justify-center space-x-10 mt-5 gap-20 ml-10">
+      <div className="flex justify-center space-x-10 mt-5 gap-20 ml-80">
 <div className="border-10 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
   <FaTint size={42} className="mx-auto" style={{ color: 'white' }} />
   <Link href="/pH">
   <button
-    className="text-center space-y-2 text-white w-[150px] h-130"
-     
+    className="text-center space-y-2 text-white w-[150px] h-130"    
     onClick={() => handleButtonClick('monthly')}
   >
     <p className="">pH Section <br />(Below 0-6.99)</p>
@@ -58,8 +69,7 @@ const Temperature = () => {
     <FaThermometerThreeQuarters size={52} className="mx-auto" style={{ color: 'white' }} />
    <Link href="/graphs">
     <button
-    className="text-center space-y-2 text-white w-[150px] h-130"
-    
+    className="text-center space-y-2 text-white w-[150px] h-130"    
     onClick={() => handleButtonClick('monthly')}
   >
     <p className="">Temperature <br />(Below 05-30C)</p>
@@ -68,348 +78,48 @@ const Temperature = () => {
   </Link>
   </div>
 </div>
-<p style={{marginLeft:'48%', marginTop:'3%'}}>Temperature Readings</p>
 
-      <div className="ml-[10%]  flex flex-col items-left font-family-Poppins mr-20 ">
-      <p className="text-3xl -mt-2 mb-9 ml-24 text-base font-medium text-[#422503]"></p>
-      <div className="bg-white-200 p-4 font-semibold rounded-lg ">
-       
-        <LineChart className="mb-[20px] ml-[20%]" width={930} height={450} data={chartData} >
-          <XAxis dataKey="name">
-            {activeButton === 'monthly' ? (
-              <Label value="Time(hrs)" position="insideBottom" dy={7} />
-            ) : (
-              <Label value="Days" position="insideBottom" className='font-medium' dy={7} />
-            )}
-          </XAxis>
-          <YAxis >
-            <Label value="pH Values" angle={-90} position="insideLeft"  />
-          </YAxis>
-          <CartesianGrid stroke="#ccc" />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="Temperature" stroke="#422503" className="mt-10" />
-        </LineChart>
+<>
+      <div className="w-[1250px] h-[600px] flex mx-auto my-auto ml-10">
+        <div className="border pt-0 w-full h-fit my-auto shadow-xl" style={{ marginLeft: '400px', marginTop: '50px' }}>
+          <canvas id="myChart" className="w-full "></canvas>
+        </div>
       </div>
-      </div> 
-      {/* ... your existing JSX code for buttons ... */}      {/* Display the fetched sensors data */}
-      <div className="mx-auto space-y-4 ml-30">
-        <div className="display-flex text-white bg-blue-950 w-[90%] p-4 flex justify-between items-center mt-7 h-10 ml-40">
-          <div className="flex gap-20 items-center ml-10">
-            <p className="text-sm font-semibold">Sensor Location</p>
-            <p className="text-sm font-semibold">Date</p>
-            <p className="text-sm font-semibold">Time (hrs)</p>
-            <p className="text-sm font-semibold">Analysis (pH)</p>
-            <p className="text-sm font-semibold">Status Report</p>
-          </div>
-        </div>       
-        
-         {sensors.map((sensor: { id: React.Key | null | undefined; location: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; created_at: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; data_sent_time: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; sensor_type: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }) => (
-          <div key={sensor.id} className="display-flex text-black bg-gray-300 w-[90%] p-4 flex justify-between items-center ml-40">
-            <div className="flex gap-20 items-center ml-10">
-              <p className="text-xs font-semibold">{sensor.location}</p>
-              <p className="text-xs font-semibold">{sensor.created_at}</p>
-              <p className="text-xs font-semibold">{sensor.data_sent_time}</p>
-              <p className="text-xs font-semibold">{sensor.sensor_type}</p>
-              <p className="text-xs font-semibold">Normal</p>
-            </div>
-          </div>
-        ))}
-      </div>
+    </>
+
+    <div className="mx-auto  ml-[16%]">
+  <table className="w-[110%] ml-60">
+    <thead className="">
+      <tr className="bg-blue-950 text-white">
+        <th className="py-3 px-4 border border-white text-sm font-semibold  ">Sensor Location</th>
+        <th className="py-2 px-4 border border-white text-sm font-semibold">Date</th>
+        <th className="py-2 px-4 border border-white text-sm font-semibold">Time (hrs)</th>
+        <th className="py-2 px-4 border border-white text-sm font-semibold">Analysis</th>
+        <th className="py-2 px-4 border border-white text-sm font-semibold">Status Report</th>
+      </tr>
+      
+    </thead>
+    <tbody>
+    {sensorChart.map((sensor, index) => (
+        <tr key={index} className={'bg-gray-300 text-center'}>
+          <td className="py-2  border text-xs">{sensor.location}</td>
+
+          <td className="py-2 px-4 border text-xs">{new Date().toLocaleDateString()}</td>
+      <td className="py-2 px-4 border text-xs">
+  {sensor.data_sent_time && `${(new Date(sensor.data_sent_time).getHours()).toFixed(2)}hrs`}
+</td>
+          <td className="py-2 px-4 border text-xs">{sensor.id}</td>
+          <td className="py-2 px-4 border text-xs">Acidic</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+      <Sidebar/>
     </div>
   );
 };
 export default Temperature;
-
-
-
-
-// 'use client'
-// import React, { useState } from "react";
-// import { FaTint, FaThermometerThreeQuarters, FaDatabase } from "react-icons/fa";
-// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } from 'recharts';
-// import Link from 'next/link'
-
-// const Temperature = () => {
-//   const tempData = [
-//     { name: '2.00', pH: 5.0, Temperature: 12 },
-//     { name: '4.00', pH: 4, Temperature: 23 },
-//     { name: '8.00', pH: 5.0, Temperature: 24 },
-//     { name: '12.00', pH: 7.1, Temperature: 35 },
-//     { name: '16.00', pH: 8.0, Temperature: 26 },
-//     { name: '20.00', pH: 6, Temperature: 37 },
-//   ];
-//   const pHData = [
-//     { name: 'Mon', pH: 4.0, Temperature: 22 },
-//     { name: 'Tue', pH: 6.5, Temperature: 33 },
-//     { name: 'Wed', pH: 5, Temperature: 24 },
-//     { name: 'Thu', pH: 5, Temperature: 26 },
-//     { name: 'Fri', pH: 7.99, Temperature: 20 },
-//     { name: 'Sat', pH: 5, Temperature: 27 },
-//     { name: 'Sun', pH: 6.5, Temperature: 30 },
-//   ];
-//   const [activeButton, setActiveButton] = useState<'monthly' | 'weekly'>('monthly');
-//   const chartData = activeButton === 'monthly' ? tempData : pHData;
-//   const handleButtonClick = (buttonType: 'monthly' | 'weekly') => {
-//     setActiveButton(buttonType);
-//   };  
-//   return (  
-//   <div className="mx-auto  flex flex-col items-left font-family-Poppins mb-20">
-  
-// <div className="flex justify-center space-x-10 mt-5 gap-20 ml-10">
-// <div className="border-10 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
-//   <FaTint size={42} className="mx-auto" style={{ color: 'white' }} />
-//   <Link href="/pH">
-//   <button
-//     className="text-center space-y-2 text-white w-[150px] h-130"
-     
-//     onClick={() => handleButtonClick('monthly')}
-//   >
-//     <p className="">pH Section <br />(Below 0-6.99)</p>
-//     <hr className="border-white" />
-//   </button>
-//   </Link>
-// </div>
-
-// <div className=" p-4 max-w-lg rounded-lg text-Slate-50 bg-blue-950 flex items-center ml-20">
-//     <FaThermometerThreeQuarters size={52} className="mx-auto" style={{ color: 'white' }} />
-//    <Link href="/graphs">
-//     <button
-//     className="text-center space-y-2 text-white w-[150px] h-130"
-    
-//     onClick={() => handleButtonClick('monthly')}
-//   >
-//     <p className="">Temperature <br />(Below 05-30C)</p>
-//     <hr className="border-white" />
-//   </button>
-//   </Link>
-//   </div>
-// </div>
-// <p style={{marginLeft:'48%', marginTop:'3%'}}>Temperature Readings</p>
-
-//       <div className="ml-[10%]  flex flex-col items-left font-family-Poppins mr-20 ">
-//       <p className="text-3xl -mt-2 mb-9 ml-24 text-base font-medium text-[#422503]"></p>
-//       <div className="bg-white-200 p-4 font-semibold rounded-lg ">
-       
-//         <LineChart className="mb-[20px] ml-[20%]" width={930} height={450} data={chartData} >
-//           <XAxis dataKey="name">
-//             {activeButton === 'monthly' ? (
-//               <Label value="Time(hrs)" position="insideBottom" dy={7} />
-//             ) : (
-//               <Label value="Days" position="insideBottom" className='font-medium' dy={7} />
-//             )}
-//           </XAxis>
-//           <YAxis >
-//             <Label value="pH Values" angle={-90} position="insideLeft"  />
-//           </YAxis>
-//           <CartesianGrid stroke="#ccc" />
-//           <Tooltip />
-//           <Legend />
-//           <Line type="monotone" dataKey="Temperature" stroke="#422503" className="mt-10" />
-//         </LineChart>
-//       </div>
-//       </div> 
-      
-
-
-// // <div className="mx-auto space-y-4 ml-30">
-// // <div className="display-flex text-white bg-blue-950 w-[90%] p-4 flex justify-between items-center mt-7 h-10 ml-40">
-// //     <div className="flex gap-20 items-center ml-10">
-// //       <p className="text-sm font-semibold">Sensor Location</p>
-// //       <p className="text-sm font-semibold">Date</p>
-// //       <p className="text-sm font-semibold">Time (hrs)</p>
-// //       <p className="text-sm font-semibold">Analysis (pH)</p>
-// //       <p className="text-sm font-semibold">Status Report</p>
-// //     </div>
-// //   </div>
-
-// //   <div className="display-flex text-black bg-gray-300 w-[90%] p-4 flex justify-between items-center ml-40">
-// //     <div className="flex gap-20 items-center ml-10">
-// //       <p className="text-xs font-semibold">Naivasha West</p>
-// //       <p className="text-xs font-semibold">2/10/2023</p>
-// //       <p className="text-xs font-semibold">4:23 PM</p>
-// //       <p className="text-xs font-semibold">6:8</p>
-// //       <p className="text-xs font-semibold">Normal</p>
-// //     </div>
-// //   </div>
-
-// //   <div className="display-flex text-black bg-gray-300 w-[90%] p-4 flex justify-between items-center mt-10 ml-40">
-// //     <div className="flex gap-20 items-center">
-// //       <p className="text-xs font-semibold">Naivasha North</p>
-// //       <p className="text-xs font-semibold">4/10/2023</p>
-// //       <p className="text-xs font-semibold">5:10am</p>
-// //       <p className="text-xs font-semibold">7:00am</p>
-// //       <p className="text-xs font-semibold">Normal</p>
-// //     </div>
-// //   </div>
-// // </div>
-// // </div>
-//   );
-// };
-// export default Temperature;
-
-
-
-
-
-
-
-
-// 'use client'
-// import React, { useState , useEffect} from "react";
-// import { FaTint, FaThermometerThreeQuarters, FaDatabase } from "react-icons/fa";
-// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } from 'recharts';
-// import Link from 'next/link'
-// import axios from "axios"
-
-// interface SensorData{
-//   id: Number;
-//   serial_number: Number;
-//   location: String;
-//   sensor_type: String;
-//   data_sent_time: String;
-//   created_at: String;
-//   updated_at: String;
-    
-// }
-
-// const Temperature = () => {
-//   const [data, setData] = useState<SensorData[]>([]);
-
-//   useEffect(() => {
-//     axios
-//       .get<SensorData[]>("https://amanyi-backend-64c984796c62.herokuapp.com/api/sensors")
-//       .then((response) => {
-//         setData(response.data);
-//       })
-//       .catch((error) => {
-//         if (error.response) {
-//           // The request was made, but the server responded with an error status code (e.g., 4xx or 5xx)
-//           console.error("Error response data:", error.response.data);
-//           console.error("Error response status:", error.response.status);
-//         } else if (error.request) {
-//           // The request was made, but no response was received
-//           console.error("No response received. Check your network connection or the server.");
-//         } else {
-//           // Something happened while setting up the request
-//           console.error("Error:", error.message);
-//         }
-//       });
-//   }, []);
-  
-
- 
-
-//   const tempData = [
-//     { name: '2.00', pH: 5.0, Temperature: 12 },
-//     { name: '4.00', pH: 4, Temperature: 23 },
-//     { name: '8.00', pH: 5.0, Temperature: 24 },
-//     { name: '12.00', pH: 7.1, Temperature: 35 },
-//     { name: '16.00', pH: 8.0, Temperature: 26 },
-//     { name: '20.00', pH: 6, Temperature: 37 },
-//   ];
-//   const pHData = [
-//     { name: 'Mon', pH: 4.0, Temperature: 22 },
-//     { name: 'Tue', pH: 6.5, Temperature: 33 },
-//     { name: 'Wed', pH: 5, Temperature: 24 },
-//     { name: 'Thu', pH: 5, Temperature: 26 },
-//     { name: 'Fri', pH: 7.99, Temperature: 20 },
-//     { name: 'Sat', pH: 5, Temperature: 27 },
-//     { name: 'Sun', pH: 6.5, Temperature: 30 },
-//   ];
-//   const [activeButton, setActiveButton] = useState<'monthly' | 'weekly'>('monthly');
-//   const chartData = activeButton === 'monthly' ? tempData : pHData;
-//   const handleButtonClick = (buttonType: 'monthly' | 'weekly') => {
-//     setActiveButton(buttonType);
-//   };  
-//   return (  
-//   <div className="mx-auto  flex flex-col items-left font-family-Poppins mb-20">
-  
-// <div className="flex justify-center space-x-10 mt-5 gap-20 ml-10">
-// <div className="border-10 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
-//   <FaTint size={42} className="mx-auto" style={{ color: 'white' }} />
-//   <Link href="/pH">
-//   <button
-//     className="text-center space-y-2 text-white w-[150px] h-130"
-     
-//     onClick={() => handleButtonClick('monthly')}
-//   >
-//     <p className="">pH Section <br />(Below 0-6.99)</p>
-//     <hr className="border-white" />
-//   </button>
-//   </Link>
-// </div>
-
-// <div className=" p-4 max-w-lg rounded-lg text-Slate-50 bg-blue-950 flex items-center ml-20">
-//     <FaThermometerThreeQuarters size={52} className="mx-auto" style={{ color: 'white' }} />
-//    <Link href="/graphs">
-//     <button
-//     className="text-center space-y-2 text-white w-[150px] h-130"
-    
-//     onClick={() => handleButtonClick('monthly')}
-//   >
-//     <p className="">Temperature <br />(Below 05-30C)</p>
-//     <hr className="border-white" />
-//   </button>
-//   </Link>
-//   </div>
-// </div>
-// <p style={{marginLeft:'48%', marginTop:'3%'}}>Temperature Readings</p>
-
-//       <div className="ml-[10%]  flex flex-col items-left font-family-Poppins mr-20 ">
-//       <p className="text-3xl -mt-2 mb-9 ml-24 text-base font-medium text-[#422503]"></p>
-//       <div className="bg-white-200 p-4 font-semibold rounded-lg ">
-       
-//         <LineChart className="mb-[20px] ml-[20%]" width={930} height={450} data={chartData} >
-//           <XAxis dataKey="name">
-//             {activeButton === 'monthly' ? (
-//               <Label value="Time(hrs)" position="insideBottom" dy={7} />
-//             ) : (
-//               <Label value="Days" position="insideBottom" className='font-medium' dy={7} />
-//             )}
-//           </XAxis>
-//           <YAxis >
-//             <Label value="pH Values" angle={-90} position="insideLeft"  />
-//           </YAxis>
-//           <CartesianGrid stroke="#ccc" />
-//           <Tooltip />
-//           <Legend />
-//           <Line type="monotone" dataKey="Temperature" stroke="#422503" className="mt-10" />
-//         </LineChart>
-//       </div>
-//       </div> 
-      
-
-
-// <div className="mx-auto space-y-4 ml-30">
-// <div className="display-flex text-white bg-blue-950 w-[90%] p-4 flex justify-between items-center mt-7 h-10 ml-40">
-//     <div className="flex gap-20 items-center ml-10">
-//       <p className="text-sm font-semibold">Sensor Location</p>
-//       <p className="text-sm font-semibold">Date</p>
-//       <p className="text-sm font-semibold">Time (hrs)</p>
-//       <p className="text-sm font-semibold">Analysis (pH)</p>
-//       <p className="text-sm font-semibold">Status Report</p>
-//     </div>
-//   </div>
-
-//  {data.map((item, index) => (
-//   <div  className="display-flex text-black bg-gray-300 w-[90%] p-4 flex justify-between items-center ml-40">
-//     <div className="flex gap-20 items-center ml-10">
-//       <p className="text-xs font-semibold">{item.location}</p>
-//       <p className="text-xs font-semibold">{item.created_at}</p>
-//       <p className="text-xs font-semibold">{item.data_sent_time}</p>
-//       <p className="text-xs font-semibold">{item.sensor_type}</p>
-//       <p className="text-xs font-semibold">normal</p>
-//     </div>
-//   </div>
-
-// ))}
-// </div>
-// </div>
-//   );
-// };
-// export default Temperature;
-
 
 
 
