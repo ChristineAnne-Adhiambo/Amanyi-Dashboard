@@ -13,7 +13,7 @@ import React from 'react';
 export default function Home() {
   return (
     <main>    
-    </RootLayout>
+    
     <RootLayout showSidebar={false}>
      <SignupForm/>
     </RootLayout>

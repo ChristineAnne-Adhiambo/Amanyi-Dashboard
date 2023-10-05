@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { FaTint, FaThermometerThreeQuarters, FaDatabase } from "react-icons/fa";
+import Sidebar from "../components/Sidebar";
 
 import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Legend,PieChart,Pie,Cell,} from "recharts";const HomePage = () => {
 
