@@ -93,10 +93,12 @@ const DataRecordings: React.FC = () => {
   }, []);
 
   return (
+
     <div className="ml-[520px]">
       <div className="flex justify-center space-x-10 mt-10 mb-10">
 
       <div className="flex justify-center space-x-10 mt-10 mb-10">
+
         <div className="border-4 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
           <FaTint size={62} className="mx-auto" style={{ color: 'white' }} />
           <button
@@ -128,7 +130,8 @@ const DataRecordings: React.FC = () => {
           </button>
         </div>
       </div>
-     
+   
+
       </div>
 
       <div className="flex justify-center mt-[180px]" style={{ maxWidth: '280%', margin: '0 auto' }}>
