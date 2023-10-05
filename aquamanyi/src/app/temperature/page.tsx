@@ -118,6 +118,8 @@ function Temperature() {
       <Sidebar/>
     </div>
   );
+
+  
 };
 export default Temperature;
 
