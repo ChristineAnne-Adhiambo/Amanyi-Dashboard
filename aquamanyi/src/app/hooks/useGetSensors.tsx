@@ -18,7 +18,6 @@ interface Sensors {
         const products = await getSensors();
         
         setProducts(products);
-
     })();
   }, []);
   return { sensors };

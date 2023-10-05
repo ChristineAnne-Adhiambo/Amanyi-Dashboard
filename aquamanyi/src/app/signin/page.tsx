@@ -26,8 +26,8 @@ const SigninForm = () => {
             <div className= "bg-primary flex-1 justify-center items-center flex">
                 <img src="/images/Amanyi-Logo.png" alt="logo" className="md:w-[400px] object-cover" />
             </div>
-            <div className="flex-1 justify-center items-center flex ml-80 space-y-10">
-                <form onSubmit={handleSubmit(handleFormSubmit)} className="w-full sm:w-[400px] px-3 space-y-20">
+            <div className="flex-1 justify-center items-center flex">
+                <form onSubmit={handleSubmit(handleFormSubmit)} className="w-full sm:w-[400px] px-3">
                     <h2 className="text-primary text-[20px] font-[800]">
                         Sign In
                     </h2>
@@ -44,8 +44,8 @@ const SigninForm = () => {
                         type="password"
                         {...register("password")}
                     />
-                    {errors?.password && <p className="text-red-400">{errors?.password?.message}</p>}         
-                               <Link href="homePage"><button className="mt-8 bg-[#38D0F5] text-primary text-[15px] font-[700] h-[40px] px-6 w-full rounded-full">
+                    {errors?.password && <p className="text-red-400">{errors?.password?.message}</p>}                  
+                      <Link href="homePage"><button className="mt-8 bg-[#38D0F5] text-primary text-[15px] font-[700] h-[40px] px-6 w-full rounded-full">
                         Sign In
                     </button>
                     </Link>

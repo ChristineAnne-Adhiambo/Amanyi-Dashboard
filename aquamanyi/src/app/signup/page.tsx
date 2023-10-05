@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Input } from "../atoms/forms";
+// import { InputPassword } from "../atoms/icons";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BiSolidLockAlt } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
@@ -28,11 +29,11 @@ const SignupForm = () => {
         console.log(data);
     };
     return (
-        <div className="flex w-full min-h-screen flex-col md:flex-row min-width:1200px " >
+        <div className="flex w-full min-h-screen flex-col md:flex-row min-width:1200px" >
             <div className="bg-primary flex-1 justify-center items-center flex" >
                 <img src="/images/Amanyi-Logo.png" alt="logo" className="md:w-[7800px] object-cover" />
             </div>
-            <div className="flex-1 justify-center items-center flex ml-[320px] ">
+            <div className="flex-1 justify-center items-center flex ml-[320px]">
                 <form onSubmit={handleSubmit(handleFormSubmit)}className="w-full sm:w-[400px] px-2">
                     <div>
                         <h2 className="text-primary text-[20px] font-[800]">
@@ -66,18 +67,18 @@ const SignupForm = () => {
                         {...register("confirmPassword")}
                     />
                     {errors?.confirmPassword && <p className="text-red-400">{errors?.confirmPassword?.message}</p>}
-                    <button className="mt-4 bg-[#38D0F5
-] text-primary text-[15px] font-[700] h-[40px] px-6 w-full rounded-full  ">
+                    <button className="mt-4 bg-[#38D0F5] text-primary text-[15px] font-[700] h-[40px] px-6 w-full rounded-full  ">
                         <Link href='signin'>Sign Up
                         </Link>
-                    </button>                    <p className="mt-4 text-sm flex gap-2">
+                    </button>                    
+                    <p className="mt-4 text-sm flex gap-2">
                         Already Have an account? <Link href="/signin" className="text-primary font-[800]">
                             Sign In
                         </Link>
                     </p>
                 </form>
             </div>
-            <div/>
+            <div />
         </div>
     );
 };
