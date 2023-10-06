@@ -1,43 +1,35 @@
-import { error, log } from "console";
 import { BASE_URL } from "../../../../config";
 import { NextResponse } from "next/server";
-import  axios from 'axios'
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const result = await axios.post(`${BASE_URL}/user/`,JSON.stringify(body), {
-   
+    const body = await request.json();
+    const response = await fetch(`${BASE_URL}/user/`, {
+      method: 'POST',
       headers: {
         "Content-Type": "application/json",
-      },  
-    }). catch(error =>{
-      console.log(error)
-      if(error?.response?.data && Object.keys(error?.response?.data)?.length > 0){
-        throw new Error(error.response.data[Object.keys(error?.response?.data)[0]])
-
-      } else{
-        throw new Error("Failed to register")
-      } 
-    })
-     
-    console.log(result)
-    
-    return new NextResponse((result.data), {
-      status: 201,
-      statusText: "Success",
+      },
+      body: JSON.stringify(body),
     });
+
+    if (response.ok) {
+      const data = await response.json();
+      return new NextResponse(JSON.stringify(data), {
+        status: 201,
+        statusText: "Success",
+      });
+    } else {
+      const errorData = await response.json(); 
+      if (errorData && Object.keys(errorData).length > 0) {
+        throw new Error(errorData[Object.keys(errorData)[0]]);
+      } else {
+        throw new Error("Failed to register");
+      }
+    }
   } catch (error: any) {
     return new NextResponse(error.message, {
-      status:500,
-      statusText:'Failed'
+      status: 500,
+      statusText: 'Failed',
     });
   }
 }
-
-
-
-
-
-
-

@@ -22,13 +22,14 @@ export default function RootLayout({
 }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={inter.className + ' flex'}>
+      <body className={inter.className} >
         <div className="flex">
+          {showSidebar && <Sidebar />}
+          <div className='w-full flex-1'>
+            {children}
+          </div>
         </div>
-        {showSidebar && <Sidebar/>}
-        <div>
-          {children}
-        </div>
+
       </body>
     </html>
   );

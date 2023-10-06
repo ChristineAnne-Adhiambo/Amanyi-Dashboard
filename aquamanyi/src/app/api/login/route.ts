@@ -17,6 +17,13 @@ export async function POST(request: Request) {
     });
     const post = await result.json();
     console.log(post);
+    if(!result.ok){
+      return new Response(post.message, {
+        status: 400,
+        statusText: "Success",
+      });
+
+    }
     
     return new Response((post), {
       status: 201,
