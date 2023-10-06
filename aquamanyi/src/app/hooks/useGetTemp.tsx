@@ -1,4 +1,4 @@
-import { getTemp } from "../Utilities/utils";
+import { getTemp } from "../Utilitie/utils";
 import { useEffect, useState } from "react";
 
 interface TempData {

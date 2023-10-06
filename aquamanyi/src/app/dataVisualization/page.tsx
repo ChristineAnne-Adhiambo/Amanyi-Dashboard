@@ -1,9 +1,10 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
-import Chart from 'chart.js/auto';
 import { FaTint, FaThermometerThreeQuarters } from 'react-icons/fa';
 import Sidebar from '../components/Sidebar';
 import useGetTemp from '../hooks/useGetTemp';
+import Chart from 'chart.js';
+
 
 const DataRecordings: React.FC = () => {
   const chartCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -70,21 +71,26 @@ const DataRecordings: React.FC = () => {
           data: data,
           options: {
             scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: 'Time (Hours)',
+              xAxes: [
+                {
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Time (Hours)',
+                  },
                 },
-              },
-              y: {
-                beginAtZero: true,
-                suggestedMin: 0,
-                suggestedMax: 30,
-                title: {
-                  display: true,
-                  text: 'Value',
+              ],
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                    suggestedMin: 0,
+                  },
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Value',
+                  },
                 },
-              },
+              ],
             },
           },
         });
@@ -149,7 +155,7 @@ const DataRecordings: React.FC = () => {
           </thead>
           <tbody>
             {tableData.map((item, index) => (
-              <tr key={index} className="bg-gray-300">
+              <tr className="bg-gray-300">
                 <td className="py-2 px-4 border border-white text-xs text-center">
                   {item.time && `${(new Date(item.time).getHours()).toString().padStart(2, '0')}:${(new Date(item.time).getMinutes()).toString().padStart(2, '0')}`}
                 </td>
