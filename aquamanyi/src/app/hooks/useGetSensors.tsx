@@ -1,5 +1,6 @@
 import {  useEffect, useState } from "react";
 import { getSensors } from "../utilities/utils";
+
   
 interface Sensors {
   id: number;

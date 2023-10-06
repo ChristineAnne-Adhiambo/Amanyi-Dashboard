@@ -5,7 +5,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } 
 import Link from 'next/link';
 import Sidebar from "../components/Sidebar";
 import useGetSensors from "../hooks/useGetSensors";
-import { Chart } from "chart.js";
+import Chart from "chart.js";
+
 
 function Temperature() {
   const { sensors: sensorChart } = useGetSensors(); 
@@ -39,6 +40,7 @@ function Temperature() {
   }   return (
     <div className="mx-auto flex flex-col items-left font-family-Poppins mb-20">
       <div className="flex justify-center space-x-10 mt-5 gap-20 ml-80">
+
 <div className="border-10 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
   <FaTint size={42} className="mx-auto" style={{ color: 'white' }} />
   <Link href="/pH">
@@ -62,9 +64,10 @@ function Temperature() {
   </button>
   </Link>
   </div>
+
 </div><>
       <div className="w-[1250px] h-[600px] flex mx-auto my-auto ml-10">
-        <div className="border pt-0 w-full h-fit my-auto shadow-xl" style={{ marginLeft: '400px', marginTop: '50px' }}>
+        <div className="border pt-0 w-full h-fit my-auto shadow-xl" style={{ marginLeft: '500px', marginTop: '50px' }}>
           <canvas id="myChart" className="w-full "></canvas>
         </div>
       </div>

@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import Sidebar from "../components/Sidebar";
 import { FaTint, FaThermometerThreeQuarters, FaDatabase } from "react-icons/fa";
+import Sidebar from "../components/Sidebar";
+
 import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Legend,PieChart,Pie,Cell,} from "recharts";const HomePage = () => {
+
   const dailyTemperatureData = [
     { name: "Mon", Temperature: 29 },
     { name: "Tue", Temperature: 25 },
@@ -25,7 +27,9 @@ import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Legend,PieChart,Pie,Cell,
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );  const filteredPhData = weeklyPhData.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
+
   );  return (
+
     <div className="container mx-auto  sm:[480px] md:[760px] lg:[976] xl:[144] ml-60">
       <div className="flex justify-center">
   <input
@@ -35,8 +39,10 @@ import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Legend,PieChart,Pie,Cell,
     value={searchTerm}
     onChange={(e) => setSearchTerm(e.target.value)}
   />
+
 </div><div className="flex justify-center gap-60 mt-10 space-x-10 ">
 <div className="border-4 p-4 max-w-lg rounded-lg text-white bg-sky-500/100 flex items-center h-40">
+
   <FaTint size={80} className="text-white mx-auto" />
   <button
   className="text-white ml-4 w-200"
@@ -48,7 +54,9 @@ import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Legend,PieChart,Pie,Cell,
   </p>
   <hr className="border-white" />
 </button>
+
   </div>  <div className="border-4 p-4 max-w-lg rounded-lg text-white bg-blue-950 flex items-center h-30">
+
   <FaThermometerThreeQuarters size={80} className="text-white mx-auto" />
   <button
   className="text-white ml-4 w-100"
@@ -113,5 +121,6 @@ import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Legend,PieChart,Pie,Cell,
             </div>          </div>
           <Sidebar/>
     </div>
+    
   );
 };export default HomePage;

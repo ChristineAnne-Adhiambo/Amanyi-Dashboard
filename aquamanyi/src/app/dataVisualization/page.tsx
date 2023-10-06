@@ -1,98 +1,110 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
-import Chart from 'chart.js/auto';
 import { FaTint, FaThermometerThreeQuarters } from 'react-icons/fa';
 import Sidebar from '../components/Sidebar';
+import useGetTemp from '../hooks/useGetTemp';
+import Chart from 'chart.js';
 
-const DataVisualization: React.FC = () => {
+
+const DataRecordings: React.FC = () => {
   const chartCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [activeButton, setActiveButton] = useState<'day' | 'week' | 'month'>('day');
   const [tableData, setTableData] = useState<{ time: string; pH: number; temperature: number }[]>([]);
-
+  const { temperatureData, phData } = useGetTemp();
   const handleButtonClick = (buttonType: 'day' | 'week' | 'month') => {
     setActiveButton(buttonType);
     updateChartData(buttonType);
   };
-
   const updateChartData = (type: 'day' | 'week' | 'month') => {
-
     let labels: string[] = [];
-    let phData: number[] = [];
-    let temperatureData: number[] = [];
+    let phDataValues: number[] = [];
+    let temperatureDataValues: number[] = [];
 
-    if (type === 'day') {
-      labels = ['1', '2', '3', '4', '5', '6', '7'];
-      phData = [6, 7, 6.5, 7.2, 6.8, 7.1, 6.7];
-      temperatureData = [18, 20, 21, 22, 20, 19, 20];
-    } else if (type === 'week') {
-      labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-      phData = [6.2, 6.9, 7.0, 6.8, 7.1, 6.7, 6.5];
-      temperatureData = [18.5, 20.3, 21.2, 22.1, 20.8, 19.7, 20.5];
-    } else if (type === 'month') {
-      labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
-      phData = [6.7, 6.8, 7.1, 6.9];
-      temperatureData = [19.8, 20.5, 21.2, 20.7];
+    if (type === 'day' || type === 'week' || type === 'month') {
+      labels = temperatureData.map((data) => data.x);
+      phDataValues = phData.map((data) => data.y);
+      temperatureDataValues = temperatureData.map((data) => data.y);
     }
-
-    const updatedChartData = {
-      labels,
-      datasets: [
-        {
-          label: 'pH',
-          data: phData,
-          backgroundColor: '#87CEEB',
-          borderColor: '#87CEEB',
-          borderWidth: 1,
-        },
-        {
-          label: 'Temperature (°C)',
-          data: temperatureData,
-          backgroundColor: '#082E58',
-          borderColor: '#0000FF',
-          borderWidth: 1,
-        },
-      ],
-    };
-
- 
     const updatedTableData = labels.map((label, index) => ({
       time: label,
-      pH: phData[index],
-      temperature: temperatureData[index],
+      pH: phDataValues[index] || 0, 
+      temperature: temperatureDataValues[index] || 0, 
     }));
-    setTableData(updatedTableData);
 
+    setTableData(updatedTableData);
+  };
+
+    useEffect(() => {
+    const labels = [
+      '08:00', '14:55', '12:04', '12:05', '12:05', '12:06', '12:07', '12:10',
+      '00:29', '00:29', '11:56', '20:09',
+    ];
     const chartCanvas = chartCanvasRef.current;
     if (chartCanvas) {
-      const chartCtx = chartCanvas.getContext('2d');
-      if (chartCtx) {
-        const chart = new Chart(chartCtx, {
+      const ctx = chartCanvas.getContext('2d');
+
+      if (ctx) {
+        const data = {
+          labels: labels,
+          datasets: [
+            {
+              label: 'pH',
+              backgroundColor: 'rgba(54, 162, 235, 0.5)',
+              data: [
+                10.40, 10.40, 14.00,8.00,7.00,
+                6.00, 5.50, 6.70, 7.70, 5.50, 3.00, 6.00,
+              ],
+            },
+            {
+              label: 'Temperature (°C)',
+              backgroundColor: 'rgba(0, 0, 139, 10.0)',
+              data: [
+                21.50, 20.50, 25.50, 20.50, 11.50, 11.50, 4.00, 25.00, 12.00, 12.00,
+                22.00, 16.00,
+              ],
+            },
+          ],
+        };
+
+        new Chart(ctx, {
           type: 'bar',
-          data: updatedChartData,
+          data: data,
           options: {
             scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: 'Time',
+              xAxes: [
+                {
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Time (Hours)',
+                  },
                 },
-              },
+              ],
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                    suggestedMin: 0,
+                  },
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Value',
+                  },
+                },
+              ],
             },
           },
         });
       }
     }
-  };
-
-  useEffect(() => {
-  
-    updateChartData('day');
   }, []);
 
   return (
-    <div className='ml-80'>
-      <div className="flex justify-center space-x-10 mt-10 mb-10 ml-10">
-       
+
+    <div className="ml-[520px]">
+      <div className="flex justify-center space-x-10 mt-10 mb-10">
+
+      <div className="flex justify-center space-x-10 mt-10 mb-10">
+
         <div className="border-4 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
           <FaTint size={62} className="mx-auto" style={{ color: 'white' }} />
           <button
@@ -109,47 +121,55 @@ const DataVisualization: React.FC = () => {
             className={`text-center space-y-2 text-white ${activeButton === 'week' ? 'font-bold' : ''}`}
             onClick={() => handleButtonClick('week')}
           >
-            <p className="">Temperature <br /> (Week)</p>
+            <p className="">Temperature <br /> (°C)</p>
             <hr className="border-white" />
           </button>
         </div>
-        <div className="border-4 p-4 max-w-lg rounded-lg text-Slate-50 bg-blue-950 flex items-center">
+        <div className="border-4 p-4 max-w-lg rounded-lg text-Slate-50 bg-blue-950 flex items-center ">
           <FaThermometerThreeQuarters size={62} className="mx-auto" style={{ color: 'white' }} />
           <button
             className={`text-center space-y-2 text-white ${activeButton === 'month' ? 'font-bold' : ''}`}
             onClick={() => handleButtonClick('month')}
           >
-            <p className="">Temperature & pH<br /> (Month)</p>
+            <p className="">Temperature & pH<br /> (pH/°C)</p>
             <hr className="border-white" />
           </button>
         </div>
       </div>
-      <div className="flex justify-center" style={{ maxWidth: '100%', margin: '0 auto' }}>
-  
-        <canvas ref={chartCanvasRef} id="chartCanvas" width="150" height="80" />
+   
+
       </div>
-     
-      <div className="mx-auto w-[890px] mt-7 space-y-2">
-  <div className="display-flex text-white bg-blue-950 p-4  flex justify-between items-center mt-2 gap-10">
-    <div className="flex gap-80 items-center text-center">
-      <p className="text-xs font-semibold">Time</p>
-      <p className="text-xs font-semibold">pH</p>
-      <p className="text-xs font-semibold">Temperature (°C)</p>
-    </div>
-  </div>
-  {tableData.map((item, index) => (
-    <div className="text-black bg-gray-300 p-2 flex justify-between items-center mt-2" key={index}>
-      <div className="flex gap-80 items-center text-center">
-        <p className="text-xs font-semibold">{item.time}</p>
-        <p className="text-xs font-semibold">{item.pH}</p>
-        <p className="text-xs font-semibold">{item.temperature}</p>
+
+      <div className="flex justify-center mt-[180px]" style={{ maxWidth: '280%', margin: '0 auto' }}>
+        <canvas ref={chartCanvasRef} id="chartCanvas" width="800" height="400"></canvas>
       </div>
-    </div>
-  ))}
-</div>
- <Sidebar />
+
+      <div className="mx-auto mt-7">
+        <table className="w-full">
+          <thead>
+            <tr className="bg-blue-950 text-white">
+              <th className="py-2 px-4 border border-white text-xs font-semibold text-center">Time</th>
+              <th className="py-2 px-4 border border-white text-xs font-semibold text-center">pH</th>
+              <th className="py-2 px-4 border border-white text-xs font-semibold text-center">Temperature (°C)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tableData.map((item, index) => (
+              <tr className="bg-gray-300">
+                <td className="py-2 px-4 border border-white text-xs text-center">
+                  {item.time && `${(new Date(item.time).getHours()).toString().padStart(2, '0')}:${(new Date(item.time).getMinutes()).toString().padStart(2, '0')}`}
+                </td>
+                <td className="py-2 px-4 border border-white text-xs text-center">{item.pH}</td>
+                <td className="py-2 px-4 border border-white text-xs text-center">{item.temperature}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <Sidebar />
     </div>
   );
 };
 
-export default DataVisualization;
+export default DataRecordings;
