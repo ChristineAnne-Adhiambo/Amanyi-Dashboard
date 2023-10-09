@@ -10,7 +10,6 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { BiSolidLockAlt } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 import router, { useRouter } from "next/router";
-import usePostUsers from "../hooks/usePostUser";
 import useRegister from "../hooks/usePostUser";
 
 const formSchema = z.object({
@@ -33,9 +32,6 @@ const SignupForm = () => {
   const handleFormSubmit = async (data:FormSchemaType) => {
     handleRegister(data)
 
-    const handleFormSubmit = async (data:FormSchemaType) => {
-      handleRegister(data)
-    }
   };
   
 

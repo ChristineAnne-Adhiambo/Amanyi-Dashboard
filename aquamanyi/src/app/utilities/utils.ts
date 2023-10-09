@@ -1,6 +1,6 @@
 
 export const getUser = async () => {
-  const url = './api/users';
+  const url = './api/user';
   try {
     const response = await fetch(url);
     const result = await response.json();
@@ -48,6 +48,7 @@ export const loginUser = async (loginData: LoginData) => {
     });
     if(!response.ok){
       let error = await response.text()
+      console.log({response})
       return{error}
     }
     const result = await response.json();
@@ -56,11 +57,3 @@ export const loginUser = async (loginData: LoginData) => {
     return {error:error.message};
   }
 };
-
-
-
-
-
-
-
-
