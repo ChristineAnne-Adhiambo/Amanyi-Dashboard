@@ -43,13 +43,7 @@ const HomePage = () => {
   return (
     <div className="container mx-auto  sm:[480px] md:[760px] lg:[976] xl:[144] ml-60">
       <div className="flex justify-center">
-  <input
-    type="text"
-    placeholder="Search"
-    className="w-[300px] h-[40px] px-4 mr-10 mt-4 py-2 text-gray-800 border border-gray-800 rounded-lg"
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-  />
+  
 </div>
       
 

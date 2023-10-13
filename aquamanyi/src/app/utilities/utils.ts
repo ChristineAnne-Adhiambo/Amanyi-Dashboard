@@ -1,6 +1,6 @@
 
 export const getUser = async () => {
-  const url = './api/user';
+  const url = './api/login';
   try {
     const response = await fetch(url);
     const result = await response.json();

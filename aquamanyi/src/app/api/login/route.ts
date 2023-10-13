@@ -1,45 +1,40 @@
-import { log } from "console";
 import { BASE_URL } from "../../../../config";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-  
-    const body = await request.json()
-    console.log(body);
-    
-
-    const result = await fetch(`${BASE_URL}/login/`, {
-      method: "POST",
+    const body = await request.json();
+    const response = await fetch(`${BASE_URL}/login/`, {
+      method: 'POST',
       headers: {
         "Content-Type": "application/json",
       },
-      body:JSON.stringify(body)
+      body: JSON.stringify(body),
     });
-    const post = await result.json();
-    console.log(post);
-    if(!result.ok){
-      return new Response(post.message, {
-        status: 400,
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data)
+      
+      return new NextResponse(JSON.stringify(data), {
+        status: 201,
         statusText: "Success",
       });
-
+    } else {
+      const errorData = await response.json(); 
+      console.log(errorData)
+      if (errorData) {
+        throw new Error(errorData);
+      } else {
+        throw new Error("Failed to register");
+        
+      }
     }
-    
-    return new Response((post), {
-      status: 201,
-      statusText: "Success",
-    });
   } catch (error: any) {
-    return new Response(error.message, {
+    console.log(error)
+    return new NextResponse(error.message, {
       status: 500,
-      statusText: error.message || 'Failed to log in'
+      statusText: 'Failed',
     });
   }
 }
-
-
-
-
-
-
-

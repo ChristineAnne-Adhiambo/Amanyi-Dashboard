@@ -1,5 +1,5 @@
-'use client';
-import React, { useState } from "react";
+'use client'
+import React from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,8 +9,7 @@ import { InputPassword } from "../atoms/icons";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BiSolidLockAlt } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
-import router, { useRouter } from "next/router";
-import useRegister from "../hooks/usePostUser";
+import useRegister from "../hooks/useHandleRegister";
 
 const formSchema = z.object({
   first_name: z.string({ required_error: "First name is required" }).nonempty("First name is required"),
@@ -23,38 +22,52 @@ const formSchema = z.object({
 type FormSchemaType = z.infer<typeof formSchema>;
 
 const SignupForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormSchemaType>({
+  const { register, formState: { errors } } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
   });
 
-  const { user, handleRegister , loading, error} = useRegister()
+  const { user, handleRegister , loading, error} = useRegister();
+const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+  event.preventDefault();
 
-  const handleFormSubmit = async (data:FormSchemaType) => {
-    handleRegister(data)
+  try {
+    const form = event.target as HTMLFormElement;
+    
+    const userData: FormSchemaType = {
+      first_name: form.first_name.value,
+      last_name: form.last_name.value,
+      email: form.email.value,
+      password: form.password.value,
+      username: form.username.value,
+    };
 
-  };
-  
+    await handleRegister(userData);
+  } catch (error) {
+    console.error("Registration failed:", error);
+  }
+};
+
 
   return (
-    <div className="flex w-full min-h-screen flex-col md:flex-row  ">
-      <div className="bg-primary flex-1  flex justify-center items-center">
+    <div className="flex w-full min-h-screen flex-col md:flex-row">
+      <div className="bg-primary flex-1 flex justify-center items-center">
         <img src="/images/Amanyi-Logo.png" alt="logo" className="md:w-[400px] object-cover" />
       </div>
-      <div className="flex-1 justify-center items-center flex ">
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="w-full  px-2 max-w-[500px]">
+      <div className="flex-1 justify-center items-center flex">
+        <form onSubmit={handleFormSubmit} className="w-full px-2 max-w-[500px]">
           <div>
             <h2 className="text-primary text-[20px] font-[800]">
               Sign Up
             </h2>
           </div>
 
-          {
-            error && <p className="text-red-400">{error}</p>
-          }
+          {error && <p className="text-red-400 normal-case">{error}</p>}
+
           <Input
             icon={<BsFillPersonFill />}
             placeholder="Username"
-            className="text-lg " style={{ marginLeft: 0 }}
+            className="text-lg "
+            style={{ marginLeft: 0 }}
             {...register("username")}
           />
           {errors?.username && <p className="text-red-400">{errors?.username?.message}</p>}
@@ -62,7 +75,8 @@ const SignupForm = () => {
           <Input
             icon={<BsFillPersonFill />}
             placeholder="First name"
-            className="text-lg " style={{ marginLeft: 0 }}
+            className="text-lg "
+            style={{ marginLeft: 0 }}
             {...register("first_name")}
           />
           {errors?.first_name && <p className="text-red-400">{errors?.first_name?.message}</p>}
@@ -70,7 +84,8 @@ const SignupForm = () => {
           <Input
             icon={<BsFillPersonFill />}
             placeholder="Last name"
-            className="text-lg " style={{ marginLeft: 0 }}
+            className="text-lg "
+            style={{ marginLeft: 0 }}
             {...register("last_name")}
           />
           {errors?.last_name && <p className="text-red-400">{errors?.last_name?.message}</p>}
@@ -79,8 +94,8 @@ const SignupForm = () => {
             icon={<AiOutlineMail />}
             placeholder="Email"
             type="email"
-            {...register("email")} />
-
+            {...register("email")}
+          />
           {errors?.email && <p className="text-red-400">{errors?.email?.message}</p>}
 
           <InputPassword
@@ -102,11 +117,8 @@ const SignupForm = () => {
           </p>
         </form>
       </div>
-      <div />
     </div>
   );
 };
 
 export default SignupForm;
-
-
