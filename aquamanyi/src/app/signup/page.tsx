@@ -5,11 +5,16 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "../atoms/forms";
-import { InputPassword } from "../atoms/icons";
+
 import { BsFillPersonFill } from "react-icons/bs";
 import { BiSolidLockAlt } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
+
 import useRegister from "../hooks/useHandleRegister";
+
+import SigninForm from "../signin/page";
+import { InputPassword } from "../../icons";
+
 
 const formSchema = z.object({
   first_name: z.string({ required_error: "First name is required" }).nonempty("First name is required"),
@@ -40,6 +45,7 @@ const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) 
       password: form.password.value,
       username: form.username.value,
     };
+
 
     await handleRegister(userData);
   } catch (error) {
@@ -119,6 +125,62 @@ const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) 
       </div>
     </div>
   );
+
+    return (
+        <div className="flex w-full min-h-screen flex-col md:flex-row min-width:1200px" >
+            <div className="bg-primary flex-1 justify-center items-center flex" >
+                <img src="/images/Amanyi-Logo.png" alt="logo" className="md:w-[7800px] object-cover" />
+            </div>
+            <div className="flex-1 justify-center items-center flex ml-[320px]">
+                <form onSubmit={handleSubmit(handleFormSubmit)}className="w-full sm:w-[400px] px-2">
+                    <div>
+                        <h2 className="text-primary text-[20px] font-[800]">
+                            Sign Up
+                        </h2>
+                    </div>
+                    <Input
+                        icon={<BsFillPersonFill />}
+                        placeholder="Full Name"
+                        className="text-lg " style={{ marginLeft: 0 }}
+                        {...register("name")}
+                    />
+                    {errors?.name && <p className="text-red-400">{errors?.name?.message}</p>}
+                    <Input
+                        icon={<AiOutlineMail />}
+                        placeholder="Email"
+                        type="email"
+                        {...register("email")} />
+                    {errors?.email && <p className="text-red-400">{errors?.email?.message}</p>}
+                    <InputPassword
+                        icon={<BiSolidLockAlt />}
+                        placeholder="Password"
+                        type="password"
+                        {...register("password")}
+                    />
+                    {errors?.password && <p className="text-red-400">{errors?.password?.message}</p>}
+                    <InputPassword
+                        icon={<BiSolidLockAlt />}
+                        placeholder="Confirm Password"
+                        type="password"
+                        {...register("confirmPassword")}
+                    />
+                    {errors?.confirmPassword && <p className="text-red-400">{errors?.confirmPassword?.message}</p>}
+                    <button className="mt-4 bg-[#38D0F5] text-primary text-[15px] font-[700] h-[40px] px-6 w-full rounded-full  ">
+                        <Link href='signin'>Sign Up
+                        </Link>
+                    </button>                    
+                    <p className="mt-4 text-sm flex gap-2">
+                        Already Have an account? <Link href="/signin" className="text-primary font-[800]">
+                            Sign In
+                        </Link>
+                    </p>
+                </form>
+            </div>
+            <div />
+        </div>
+    );
+
+  
 };
 
 export default SignupForm;
