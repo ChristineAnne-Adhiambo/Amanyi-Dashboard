@@ -1,7 +1,6 @@
 
-
 export const getUser = async () => {
-  const url = './api/login';
+  const url = '/api/login';
   try {
     const response = await fetch(url);
     const result = await response.json();
@@ -11,7 +10,6 @@ export const getUser = async () => {
     return error.message
   }
 }
-
 
 export const createUser = async (userdata: UsersData) => {
   const url = '/api/register';
@@ -57,23 +55,31 @@ export const loginUser = async (loginData: LoginData) => {
   } catch (error: any) {
     return {error:error.message};
   }
+
 };
 
 export const getSensors = async () => {
-    const url = `/api/get-sensors`
-    
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const result = await response.json();
-      return result;
+  const url = `/api/get-sensors/`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-     catch (error:any) {
-      throw new Error(error.message);
-    }
-  };
+    const result = await response.json();
+    return result;
+  } catch (error: any) {
+    throw new Error(error.message); 
+  }
+};
 
-  
-
+export const getTemp = async () => {
+  try {
+    const response = await fetch(`/api/get-temp`, {
+      method: "GET",
+    });
+    const result = await response.json();
+    return result;
+  } catch (error:any) {
+    return error.message
+  }
+}

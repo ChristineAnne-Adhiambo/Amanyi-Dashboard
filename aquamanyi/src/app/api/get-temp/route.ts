@@ -1,5 +1,5 @@
-
 import { BASE_URL } from "../../config";
+
 
 export async function GET() {
   try {
@@ -9,16 +9,13 @@ export async function GET() {
         statusText: 'failed'
       });
     }
-    
     const response = await fetch(`${BASE_URL}/api/recordings`, {
-      method: 'GET',  
+      method: 'GET',
       headers: {
-        'Content-Type': 'application/json'  
+        'Content-Type': 'application/json'
       }
     });
-
     const result = await response.json();
-
     return new Response(JSON.stringify(result), {
       status: 200,
       statusText: 'success'

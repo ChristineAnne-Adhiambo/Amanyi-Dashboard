@@ -1,7 +1,6 @@
 import {  useEffect, useState } from "react";
 import { getSensors } from "../utilities/utils";
 
-  
 interface Sensors {
   id: number;
   serial_number: string;
@@ -11,16 +10,19 @@ interface Sensors {
   created_at: string;
   updated_at: string;
 }
-
-  const useGetSensors = () => {  
+const useGetSensors = () => {
   const [sensors, setProducts] = useState<Sensors[]>([]);
   useEffect(() => {
     (async () => {
         const products = await getSensors();
-        
-        setProducts(products);
-    })();
+          setProducts(products);
+          })();
   }, []);
   return { sensors };
 };
 export default useGetSensors;
+
+
+
+
+

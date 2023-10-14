@@ -1,5 +1,6 @@
-import { getTemp } from "../Utilitie/utils";
 import { useEffect, useState } from "react";
+import { getTemp } from "../utilities/utils";
+
 
 interface TempData {
   id: number;
@@ -26,7 +27,6 @@ const useGetTemp = () => {
     };
     fetchData();
   }, []);
-
   const getTemperatureData = () => {
     return temp.map((data) => ({
       x: new Date(data.Timestamp).toLocaleString(),

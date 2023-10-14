@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const response = await fetch(`${BASE_URL}/user/`, {
+    const response = await fetch(`${BASE_URL}/api/user/`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -27,6 +27,7 @@ export async function POST(request: Request) {
       }
     }
   } catch (error: any) {
+    console.log(error)
     return new NextResponse(error.message, {
       status: 500,
       statusText: 'Failed',

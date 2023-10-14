@@ -5,42 +5,37 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } 
 import Link from 'next/link';
 import Sidebar from "../components/Sidebar";
 import useGetSensors from "../hooks/useGetSensors";
-import Chart from "chart.js";
-
-
+import { Chart } from "chart.js";
 function Temperature() {
-  const { sensors: sensorChart } = useGetSensors(); 
-   useEffect(() => {   
-     if (sensorChart) {
-      const pHChart = document.getElementById('myChart') as HTMLCanvasElement | null;    
-        if (pHChart) {
-        const lineChart = pHChart.getContext('2d');      
-        
-        if (lineChart) {
+  const { sensors: sensorChart } = useGetSensors();  useEffect(() => {
+      if (sensorChart) {
+      const pHChart = document.getElementById('myChart') as HTMLCanvasElement | null;
+         if (pHChart) {
+        const lineChart = pHChart.getContext('2d');
+          if (lineChart) {
           const myChart = new Chart(lineChart, {
             type: 'line',
             data: {
               labels: sensorChart.map((item) => item.location),
               datasets: [
                 {
-                  data: sensorChart.map((item) => item.id),
+                  data: [3.5, 4.0, 4.5, 5.0, 5.5, 6.0],
                   label: 'Temp',
-                  borderColor: 'blue',
-                  backgroundColor: '#71D1BD',
+                  borderColor: 'darkblue',
+                  backgroundColor: 'white',
                   fill: false,
-                  lineTension: 0,
                 },
               ],
-            },          });
+            },
+             });
         }
       }
     }  },
   [sensorChart]);  function handleButtonClick(arg0: string): void {
-    throw new Error("Function not implemented.");
-  }   return (
+  }   
+  return (
     <div className="mx-auto flex flex-col items-left font-family-Poppins mb-20">
       <div className="flex justify-center space-x-10 mt-5 gap-20 ml-80">
-
 <div className="border-10 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
   <FaTint size={42} className="mx-auto" style={{ color: 'white' }} />
   <Link href="/pH">
@@ -64,37 +59,16 @@ function Temperature() {
   </button>
   </Link>
   </div>
-
-
-      <div className="ml-[10%]  flex flex-col items-left font-family-Poppins mr-20 ">
-      <p className="text-3xl -mt-2 mb-9 ml-24 font-medium text-[#422503]"></p>
-      <div className="bg-white-200 p-4 font-semibold rounded-lg ">
-       
-        <LineChart className="mb-[20px] ml-[20%]" width={930} height={450} data={chartData} >
-          <XAxis dataKey="name">
-            {activeButton === 'monthly' ? (
-              <Label value="Time(hrs)" position="insideBottom" dy={7} />
-            ) : (
-              <Label value="Days" position="insideBottom" className='font-medium' dy={7} />
-            )}
-          </XAxis>
-          <YAxis >
-            <Label value="pH Values" angle={-90} position="insideLeft"  />
-          </YAxis>
-          <CartesianGrid stroke="#ccc" />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="Temperature" stroke="#422503" className="mt-10" />
-        </LineChart>
-
-</div><>
-      <div className="w-[1250px] h-[600px] flex mx-auto my-auto ml-10">
+</div>
+<>
+      <div className="w-[1250px] h-[600px] flex mx-auto ml-20">
         <div className="border pt-0 w-full h-fit my-auto shadow-xl" style={{ marginLeft: '500px', marginTop: '50px' }}>
           <canvas id="myChart" className="w-full "></canvas>
         </div>
-
       </div>
-    </>    <div className="mx-auto  ml-[16%]">
+    </>   
+     <div className="mx-auto  ml-[18%] mt-[-7%]">
+     <h1 className="ml-[60%] font-bold mb-8">pH and Temperature Water Readings</h1>
   <table className="w-[110%] ml-60">
     <thead className="">
       <tr className="bg-blue-950 text-white">
@@ -107,8 +81,8 @@ function Temperature() {
     <tbody>
     {sensorChart.map((sensor, index) => (
         <tr key={index} className={'bg-gray-300 text-center'}>
-          <td className="py-2  border text-xs">{sensor.location}</td>        
-            <td className="py-2 px-4 border text-xs">{new Date().toLocaleDateString()}</td>
+          <td className="py-2  border text-xs">{sensor.location}</td>
+             <td className="py-2 px-4 border text-xs">{new Date().toLocaleDateString()}</td>
       <td className="py-2 px-4 border text-xs">
   {sensor.data_sent_time && `${(new Date(sensor.data_sent_time).getHours()).toFixed(2)}hrs`}
 </td>

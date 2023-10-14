@@ -22,6 +22,7 @@ const useLogin = () => {
       setUser(response);
       cookie.set('sessionToken', response);
       toast('Logged in Successfully')
+      router.push('/homePage')
   };
   return { handleLogin, loading, user, error };
   

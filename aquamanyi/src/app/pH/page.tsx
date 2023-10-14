@@ -1,21 +1,19 @@
 'use client'
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { FaTint, FaThermometerThreeQuarters } from "react-icons/fa";
 import Link from 'next/link';
 import Sidebar from "../components/Sidebar";
 import useGetSensors from "../hooks/useGetSensors";
-import {  Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { Chart } from "chart.js";
-import { LineChart } from "recharts";
+import Chart from "chart.js";
+
 
 
 function pH() {
   const { sensors: sensorChart } = useGetSensors();
-  const lineChart = document.getElementById('myChart') as HTMLCanvasElement;
   useEffect(() => {
     if (sensorChart) {
-      const pHChart = document.getElementById('myChart') as HTMLCanvasElement | null;   
-         if (pHChart) {
+      const pHChart = document.getElementById('myChart') as HTMLCanvasElement | null;
+        if (pHChart) {
         const lineChart = pHChart.getContext('2d');     
            if (lineChart) {
           const myChart = new Chart(lineChart, {
@@ -24,32 +22,27 @@ function pH() {
               labels: sensorChart.map((item) => item.location),
               datasets: [
                 {
-                  data: [3.5, 4.0, 4.5, 5.0, 5.5, 6.0],
-                  label: 'pH Values',
-                  borderColor: 'black',
-                  backgroundColor: 'yellow',
-                  fill: false,
-                },
-                {
                   data: sensorChart.map((item) => item.id),
-                  label: 'Temp',
-                  borderColor: 'blue',
+                  label: 'pH',
+                  borderColor: 'skyblue',
                   backgroundColor: '#71D1BD',
                   fill: false,
                   lineTension: 0,
-                }              
-              ],
-            },         
+                }
+               ],
+            },
            });
         }
       }
     }
-  }, [sensorChart]);  function handleButtonClick(arg0: string): void {
-    throw new Error("Function not implemented.");
-  }   return (
+  }, [sensorChart]);
+    function handleButtonClick(arg0: string): void {
+   
+  }  
+   return (
     <div className="mx-auto flex flex-col items-left font-family-Poppins mb-20">
-      <div className="flex justify-center space-x-10 mt-5 gap-20 ml-[50%]">
-
+   
+      <div className="flex justify-center space-x-10 mt-5 gap-20 ml-80">
 <div className="border-10 p-4 max-w-lg rounded-lg text-black-400 bg-sky-500/100 flex items-center">
   <FaTint size={42} className="mx-auto" style={{ color: 'white' }} />
   <Link href="/sensors">
@@ -61,7 +54,8 @@ function pH() {
     <hr className="border-white" />
   </button>
   </Link>
-</div><div className=" p-4 max-w-lg rounded-lg text-Slate-50 bg-blue-950 flex items-center ml-20">
+</div>
+<div className=" p-4 max-w-lg rounded-lg text-Slate-50 bg-blue-950 flex items-center ml-20">
     <FaThermometerThreeQuarters size={52} className="mx-auto" style={{ color: 'white' }} />
    <Link href="/temperature">
     <button
@@ -74,45 +68,18 @@ function pH() {
   </Link>
   </div>
 </div>
-
-<p style={{marginLeft:'48%', marginTop:'3%'}}>pH Readings</p>
-
-      <div className="ml-[10%]  flex flex-col items-left font-family-Poppins mr-20 ">
-      <p className="-mt-2 mb-9 ml-24 text-base font-medium text-[#422503]"></p>
-      <div className="bg-white-200 p-4 font-semibold rounded-lg ">
-       
-        <LineChart className="mb-[20px] ml-[20%]" width={930} height={450} data={chartData} >
-          <XAxis dataKey="name">
-            {activeButton === 'monthly' ? (
-              <Label value="Time(hrs)" position="insideBottom" dy={7} />
-            ) : (
-              <Label value="Days" position="insideBottom" className='font-medium' dy={7} />
-            )}
-          </XAxis>
-          <YAxis >
-            <Label value="pH Values" angle={-90} position="insideLeft"  />
-          </YAxis>
-          <CartesianGrid stroke="#ccc" />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="pH"  stroke="#38D0F5" className="mt-10" />
-          <Line type="monotone" dataKey="Temperature" stroke="#422503" className="mt-10" />
-        </LineChart>
-      </div>
-      </div> 
-
-
-
 <>
-      <div className="w-[1250px] h-[600px] flex mx-auto my-auto ml-[15%]">
+      <div className="w-[1250px] h-[600px] flex mx-auto my-auto ml-20">
         <div className="border pt-0 w-full h-fit my-auto shadow-xl"
-        style={{ marginLeft: '400px', marginTop: '50px' }}>
+        style={{ marginLeft: '500px', marginTop: '50px' }}>
           <canvas id="myChart" className="w-full "></canvas>
         </div>
-
       </div>
     </>
-<div className="mx-auto  ml-[16%]">
+   
+   
+<div className="mx-auto  ml-[18%] mt-[-7%]">
+<h1 className="ml-[60%] font-bold mb-8">pH and Temperature Water Readings</h1>
   <table className="w-[110%] ml-60">
     <thead>
       <tr className="bg-blue-950 text-white">
@@ -121,7 +88,8 @@ function pH() {
         <th className="py-2 px-4 border border-white text-sm font-semibold">Time (hrs)</th>
         <th className="py-2 px-4 border border-white text-sm font-semibold">Analysis</th>
         <th className="py-2 px-4 border border-white text-sm font-semibold">Status Report</th>
-      </tr>    </thead>
+      </tr>   
+       </thead>
     <tbody>
     {sensorChart.map((sensor, index) => (
         <tr className={'bg-gray-300 text-center'}>
@@ -137,10 +105,14 @@ function pH() {
     </tbody>
   </table>
 </div>
-
       <Sidebar/>
     </div>
-
   );
 };
 export default pH;
+
+
+
+
+
+

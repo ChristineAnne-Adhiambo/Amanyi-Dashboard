@@ -11,7 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ['latin'] });
 
 
-
 interface RootLayoutProps {
   showSidebar: boolean;
   children: React.ReactNode;
